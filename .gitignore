@@ -30,4 +30,8 @@ build/
 !**/src/test/**/build/
 
 ### VS Code ###
-.vscode/ ### HELP.md ### mvmw  ### .mvn  
+.vscode/
+### maven ###
+HELP.md
+mvmw
+.mvn
