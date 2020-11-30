@@ -33,5 +33,3 @@ build/
 .vscode/
 ### maven ###
 HELP.md
-mvmw
-.mvn
