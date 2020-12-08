@@ -27,6 +27,12 @@ public class QuestionController {
         model.addAttribute("questions", questions);
         return "question-list";
     }
+    @GetMapping("/questionsTest")
+    public String findAllQuestionBytest (Model model){
+        List<Question> questions = questionServise.findAllQuestionByTest(2);
+        model.addAttribute("questions", questions);
+        return "question-list-tests";
+    }
     @GetMapping("/question-create")
     public String createQuestionForm(Question question) {
         return "question-create";

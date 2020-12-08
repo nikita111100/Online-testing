@@ -3,10 +3,8 @@ package org.nikita111100.onlinetesting.model.persistent;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 @Data
 @Entity
 @Table(name = "user")
