@@ -21,7 +21,6 @@
             <tr th:each ="question : ${questions}">
                 <td th:text = "${question.id}"></td>
                 <td th:text = "${question.text}"></td>
-                <td th:text = "${question.testId}"></td>
                 <td> <a  th:href = "@{question-update/{id}(id=${question.id})}">Edit</a></td>
                 <td> <a th:href = "@{question-delete/{id}(id=${question.id})}">Delete</a></td>
             </tr>
