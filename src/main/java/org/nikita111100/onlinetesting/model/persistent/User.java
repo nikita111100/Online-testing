@@ -24,7 +24,7 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER,mappedBy = "users")
     private List<Test> tests ;
 
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "user")
     private List<AnswerTest> answerTests;
 
 }

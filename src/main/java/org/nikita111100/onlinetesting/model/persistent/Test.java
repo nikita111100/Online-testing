@@ -26,10 +26,10 @@ public class Test {
             inverseJoinColumns = @JoinColumn(name="user_id"))
     private List<User> users;
 
-    @OneToMany(mappedBy = "testId")
+    @OneToMany(mappedBy = "test")
     private List<Question> questions;
 
-    @OneToMany(mappedBy = "testId")
+    @OneToMany(mappedBy = "test")
     private List<AnswerTest> answerTests;
 
 }

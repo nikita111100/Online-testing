@@ -22,7 +22,7 @@ public class PossibleAnswer {
 
     @ManyToOne
     @JoinColumn(name= "questions_id")
-    private Question questionsId;
+    private Question questions;
 
     @OneToOne(mappedBy="possibleAnswer")
     private AnswerQuestion answerQuestion;

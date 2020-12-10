@@ -20,13 +20,13 @@ public class AnswerTest {
 
     @ManyToOne
     @JoinColumn(name="test_id")
-    private Test testId;
+    private Test test;
 
     @ManyToOne
     @JoinColumn(name="user_id")
-    private User userId;
+    private User user;
 
-    @OneToMany(mappedBy = "answerTestId")
+    @OneToMany(mappedBy = "answerTest")
     private List<AnswerQuestion> AnswerQuestions;
 
 }

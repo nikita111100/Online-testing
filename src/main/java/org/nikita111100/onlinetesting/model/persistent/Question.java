@@ -21,9 +21,9 @@ public class Question{
 
     @ManyToOne
     @JoinColumn(name = "test_id")
-    private Test testId;
+    private Test test;
 
-    @OneToMany(mappedBy = "questionsId")
+    @OneToMany(mappedBy = "questions")
     private List<PossibleAnswer> possibleAnswers;
 
     public int getId() {
