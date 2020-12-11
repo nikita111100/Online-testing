@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Nikitosgood1
+    url: jdbc:mysql://localhost:3306/online_testing_db?useUnicode=true&serverTimezone=UTC
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate.ddl-auto: update
