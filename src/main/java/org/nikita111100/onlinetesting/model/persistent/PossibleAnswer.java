@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table( name = "possible_answer")
 public class PossibleAnswer {
     @Id
-    private int id;
+    private Long id;
 
     private String test;
 

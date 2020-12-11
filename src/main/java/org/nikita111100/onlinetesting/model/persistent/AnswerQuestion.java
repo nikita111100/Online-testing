@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table( name = "answer_question")
 public class AnswerQuestion {
     @Id
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "answer_test_id")

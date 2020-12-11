@@ -11,11 +11,12 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@NamedQuery(name = "getAllQuestionsByTest",
+        query = "SELECT c FROM Question c WHERE c.test = ?1")
 @Table(name = "questions")
-public class Question{
+public class Question {
     @Id
-
-    private int id;
+    private Long id;
 
     private String text;
 
@@ -26,7 +27,12 @@ public class Question{
     @OneToMany(mappedBy = "questions")
     private List<PossibleAnswer> possibleAnswers;
 
-    public int getId() {
-        return id;
+    public Question(Long id, String text, Test test) {
+        this.id = id;
+        this.text = text;
+        this.test = test;
+    }
+
+    public Question() {
     }
 }
