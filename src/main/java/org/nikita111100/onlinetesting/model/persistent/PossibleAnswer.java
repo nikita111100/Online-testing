@@ -1,14 +1,10 @@
 package org.nikita111100.onlinetesting.model.persistent;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 @Data
-@Getter
-@Setter
 @Entity
 @Table( name = "possible_answer")
 public class PossibleAnswer {

@@ -1,15 +1,12 @@
 package org.nikita111100.onlinetesting.model.persistent;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
-@Getter
-@Setter
+@NoArgsConstructor
 @Entity
 @Table( name = "test")
 public class Test {
@@ -36,8 +33,5 @@ public class Test {
         this.id = id;
         this.name = name;
         this.theme = theme;
-    }
-
-    public Test() {
     }
 }
