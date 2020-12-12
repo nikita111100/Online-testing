@@ -14,7 +14,7 @@ import java.util.List;
 @Table( name = "test")
 public class Test {
     @Id
-    private int id;
+    private Long id;
 
     private String name;
 
@@ -32,4 +32,12 @@ public class Test {
     @OneToMany(mappedBy = "test")
     private List<AnswerTest> answerTests;
 
+    public Test(Long id, String name, String theme) {
+        this.id = id;
+        this.name = name;
+        this.theme = theme;
+    }
+
+    public Test() {
+    }
 }

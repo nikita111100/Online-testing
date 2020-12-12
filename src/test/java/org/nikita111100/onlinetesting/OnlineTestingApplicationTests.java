@@ -6,10 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class OnlineTestingApplicationTests {
-
-	@Test
-	void contextLoads() {
-		Assertions.assertEquals(1,1);
-	}
+    @Test
+    void contextLoads() {
+        Assertions.assertEquals(1, 1);
+    }
 
 }

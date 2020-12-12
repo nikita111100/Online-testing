@@ -14,7 +14,7 @@ import java.util.List;
 @Table( name = "answer_test")
 public class AnswerTest {
     @Id
-    private int id;
+    private Long id;
 
     private int result;
 
