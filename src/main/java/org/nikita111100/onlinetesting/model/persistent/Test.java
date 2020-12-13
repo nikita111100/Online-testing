@@ -23,7 +23,7 @@ public class Test {
             inverseJoinColumns = @JoinColumn(name="user_id"))
     private List<User> users;
 
-    @OneToMany(mappedBy = "test")
+    @OneToMany(mappedBy = "test",cascade = CascadeType.REMOVE)
     private List<Question> questions;
 
     @OneToMany(mappedBy = "test")

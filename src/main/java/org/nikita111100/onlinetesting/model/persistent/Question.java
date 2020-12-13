@@ -22,7 +22,7 @@ public class Question {
     @JoinColumn(name = "test_id")
     private Test test;
 
-    @OneToMany(mappedBy = "questions")
+    @OneToMany(mappedBy = "questions",cascade = CascadeType.REMOVE)
     private List<PossibleAnswer> possibleAnswers;
 
     public Question(Long id, String text, Test test) {

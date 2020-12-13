@@ -11,7 +11,7 @@ public class PossibleAnswer {
     @Id
     private Long id;
 
-    private String test;
+    private String text;
 
     @Column(name= "correct_answer")
     private int correctAnswer;
