@@ -1,29 +1,31 @@
 package org.nikita111100.onlinetesting.service;
 
 import org.nikita111100.onlinetesting.model.persistent.Question;
-import org.nikita111100.onlinetesting.repository.QuestionDAO;
+import org.nikita111100.onlinetesting.repository.QuestionRepo;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.List;
+
 @Service
 public class QuestionService {
 
-    private final QuestionDAO dao;
+    private final QuestionRepo questionRepo;
 
-    public QuestionService(QuestionDAO dao) {
-        this.dao = dao;
+    public QuestionService( QuestionRepo questionRepo) {
+        this.questionRepo = questionRepo;
     }
-
-    public Question findById(Long id) {
-        return dao.findById(id)
-                .orElse(null);
+    public Question findById(Long id){
+        return questionRepo.getOne(id);
     }
-    @Transactional
-    public Long saveQuestion(Question question) {
-        return dao.save(question);
+    public List<Question> findAll(){
+        return questionRepo.findAll();
     }
-    @Transactional
-    public void deleteQuestion(Question question) {
-        dao.deleteQuestion(question);
+    public Question saveQuestion(Question question){
+        return questionRepo.save(question);
+    }
+    public void deleteById(Long id){
+        questionRepo.deleteById(id);
     }
 }
