@@ -4,8 +4,7 @@ import org.nikita111100.onlinetesting.model.persistent.Question;
 import org.nikita111100.onlinetesting.repository.QuestionRepo;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -16,15 +15,19 @@ public class QuestionService {
     public QuestionService( QuestionRepo questionRepo) {
         this.questionRepo = questionRepo;
     }
+
     public Question findById(Long id){
         return questionRepo.getOne(id);
     }
+
     public List<Question> findAll(){
         return questionRepo.findAll();
     }
+    @Transactional
     public Question saveQuestion(Question question){
         return questionRepo.save(question);
     }
+    @Transactional
     public void deleteById(Long id){
         questionRepo.deleteById(id);
     }

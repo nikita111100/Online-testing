@@ -2,7 +2,6 @@ package org.nikita111100.onlinetesting.service;
 
 import org.nikita111100.onlinetesting.model.persistent.Test;
 import org.nikita111100.onlinetesting.repository.TestDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
