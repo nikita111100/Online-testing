@@ -85,13 +85,37 @@
                 <configuration>
                     <configLocation>/etc/tools/checkstyle.xml</configLocation>
                     <consoleOutput>true</consoleOutput>
-                    <failOnViolation>false</failOnViolation>
-                    <failsOnError>false</failsOnError>
+                    <failOnViolation>false</failOnViolation> <!--TODO: remove after fix/ignore issues-->
                 </configuration>
                 <executions>
                     <execution>
-                        <id>validate</id>
                         <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>4.1.4</version>
+                <dependencies>
+                    <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+                    <dependency>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs</artifactId>
+                        <version>4.2.0</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <failOnError>false</failOnError> <!--TODO: remove after fix/ignore issues-->
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <xmlOutput>true</xmlOutput>
+                </configuration>
+                <executions>
+                    <execution>
                         <goals>
                             <goal>check</goal>
                         </goals>
