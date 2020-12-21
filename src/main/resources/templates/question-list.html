@@ -14,20 +14,19 @@
             <tr>
                 <th>id</th>
                 <th>text</th>
-                <th>testId</th>
             </tr>
             </thead>
             <tr>
             <tr th:each ="question : ${questions}">
                 <td th:text = "${question.id}"></td>
                 <td th:text = "${question.text}"></td>
-                <td> <a  th:href = "@{question-update/{id}(id=${question.id})}">Edit</a></td>
-                <td> <a th:href = "@{question-delete/{id}(id=${question.id})}">Delete</a></td>
+                <td> <a  th:href = "@{questions/{id}/update(id=${question.id})}">Edit</a></td>
+                <td> <a th:href = "@{questions/{id}/delete(id=${question.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a href ="/question-create"> Create questions</a> </p>
+    <p><a href ="questions/create"> Create questions</a> </p>
 </div>
 
 <div th:switch="${tests}">
