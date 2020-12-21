@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:switch="${questions}">
+    <h2 th:case = "null">No questions found!</h2>
+    <div th:case="*">
+        <h2>Questions</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>text</th>
+            </tr>
+            </thead>
+            <tr>
+            <tr th:each ="question : ${questions}">
+                <td th:text = "${question.id}"></td>
+                <td th:text = "${question.text}"></td>
+                <td> <a  th:href = "@{questions/{id}/update(id=${question.id})}">Edit</a></td>
+                <td> <a th:href = "@{questions/{id}/delete(id=${question.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href ="questions/create"> Create questions</a> </p>
+</div>
+
+<div th:switch="${tests}">
+    <h2 th:case = "null">No test found!</h2>
+    <div th:case="*">
+        <h2>Test</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+            </tr>
+            </thead>
+            <tr>
+            <tr th:each ="test : ${tests}">
+                <td th:text = "${test.id}"></td>
+                <td th:text = "${test.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

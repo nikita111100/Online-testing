@@ -33,3 +33,5 @@ build/
 .vscode/
 ### maven ###
 HELP.md
+###doker###
+*.log
