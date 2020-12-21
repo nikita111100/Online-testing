@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form action="#" th:action="@{/possibleAnswers/{id}/update}" th:object="${possibleAnswer}" method="post">
+    <label for="id" >id</label>
+    <input readonly type="text" th:field="*{id}" id="id" placeholder="Id">
+    <br/>
+    <label for="correctAnswer" >correctAnswer</label>
+    <input type="text" th:field="*{correctAnswer}" id="correctAnswer" placeholder="correctAnswer">
+    <br/>
+    <label for="text" >text</label>
+    <input type="text" th:field="*{text}" id="text" placeholder="text">
+    <br/>
+    <label for="questions">questions.id</label>
+    <input type="text" th:field="*{questions.id}" id="questions" placeholder="question_id">
+    <br/>
+    <input type="submit" value="Update question">
+</form>
+
+</body>
+</html>

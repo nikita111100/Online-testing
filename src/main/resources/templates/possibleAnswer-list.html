@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:switch="${possibleAnswers}">
+    <h2 th:case = "null">No possibleAnswers found!</h2>
+    <div th:case="*">
+        <h2>Possible answers</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>correct answer</th>
+                <th>text</th>
+            </tr>
+            </thead>
+            <tr>
+            <tr th:each ="possibleAnswer : ${possibleAnswers}">
+                <td th:text = "${possibleAnswer.id}"></td>
+                <td th:text = "${possibleAnswer.correctAnswer}"></td>
+                <td th:text = "${possibleAnswer.text}"></td>
+                <td> <a  th:href = "@{possibleAnswers/{id}/update(id=${possibleAnswer.id})}">Edit</a></td>
+                <td> <a th:href = "@{possibleAnswers/{id}/delete(id=${possibleAnswer.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href ="possibleAnswers/create"> Create questions</a> </p>
+</div>

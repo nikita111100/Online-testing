@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:switch="${users}">
+    <h2 th:case = "null">No user found!</h2>
+    <div th:case="*">
+        <h2>User</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>active</th>
+                <th>name</th>
+                <th>password</th>
+            </tr>
+            </thead>
+            <tr>
+            <tr th:each ="user : ${users}">
+                <td th:text = "${user.id}"></td>
+                <td th:text = "${user.active}"></td>
+                <td th:text = "${user.name}"></td>
+                <td th:text = "${user.password}"></td>
+            <td> <a  th:href = "@{users/{id}/update(id=${user.id})}">Edit</a></td>
+            <td> <a th:href = "@{users/{id}/delete(id=${user.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href ="users/create"> Create user </a> </p>
+</div>
+</body>
+</html>

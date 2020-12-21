@@ -8,10 +8,13 @@
 <form action="#" th:action="@{/questions/create}" th:object="${question}" method="post">
     <label for="id">id</label>
     <input type="text" th:field="*{id}" id="id" placeholder="id">
+    <br>
     <label for="text">text</label>
     <input type="text" th:field="*{text}" id="text" placeholder="text">
+    <br>
     <label for="test">text_id</label>
     <input type="text" th:field="*{test.id}" id="test" placeholder="test_id">
+    <br>
     <input type="submit" value="Create questions">
 </form>
 </body>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Это главная страница</title>
+</head>
+<body>
+<p>Это главная страница</p>
+<p>Тут будут все тесты</p>
+<p><a href ="/tests"> Создание теста </a> </p>
+<p><a href ="/questions"> Cоздание вопроса </a> </p>
+<p><a href ="/users"> Создание пользователя </a> </p>
+<p><a href ="/possibleAnswers"> Создание варианта ответа </a> </p>
+<div>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+</body>
+</html>

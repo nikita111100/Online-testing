@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create question</title>
+</head>
+<body>
+<form action="#" th:action="@{/tests/create}" th:object="${test}" method="post">
+    <label for="id">id</label>
+    <input type="text" th:field="*{id}" id="id" placeholder="id">
+    <br>
+    <label for="name">text</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="name">
+    <br>
+    <label for="theme">theme</label>
+    <input type="text" th:field="*{theme}" id="theme" placeholder="theme">
+    <br>
+    <input type="submit" value="Create test">
+</form>
+</body>
+</html>
