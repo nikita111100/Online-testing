@@ -31,12 +31,12 @@ public class QuestionController {
         List<Test> tests = testService.findAll();
         model.addAttribute("tests",tests);
         model.addAttribute("questions", questions);
-        return "question-list";
+        return "questions/list";
     }
 
     @GetMapping("/create")
     public String createQuestionForm(Question question) {
-        return "question-create";
+        return "questions/create";
     }
 
     @PostMapping("/create")
@@ -55,7 +55,7 @@ public class QuestionController {
     public String updateQuestionForm(@PathVariable("id") Long id,Model model) {
         Question question = questionService.findById(id);
         model.addAttribute("question", question);
-        return "/question-update";
+        return "/questions/update";
     }
 
     @PostMapping("/{id}/update")

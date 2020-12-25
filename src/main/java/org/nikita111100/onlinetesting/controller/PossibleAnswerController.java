@@ -31,11 +31,12 @@ public class PossibleAnswerController {
         List<Question> questions = questionService.findAll();
         model.addAttribute("questions", questions);
         model.addAttribute("possibleAnswers",possibleAnswers);
-        return "possibleAnswer-list";
+        return "possibleAnswers/list";
     }
+
     @GetMapping("/create")
     public String createPossibleAnswerForm(PossibleAnswer possibleAnswer) {
-        return "possibleAnswer-create";
+        return "possibleAnswers/create";
     }
 
     @PostMapping("/create")
@@ -43,6 +44,7 @@ public class PossibleAnswerController {
         possibleAnswerService.savePossibleAnswer(possibleAnswer);
         return "redirect:/possibleAnswers";
     }
+
     @GetMapping("/{id}/delete")
     public String deletePossibleAnswer(@PathVariable("id") Long id) {
         possibleAnswerService.deleteById(id);
@@ -53,7 +55,7 @@ public class PossibleAnswerController {
     public String updatePossibleAnswerForm(@PathVariable("id") Long id,Model model) {
         PossibleAnswer possibleAnswer = possibleAnswerService.findById(id);
         model.addAttribute("possibleAnswer", possibleAnswer);
-        return "/possibleAnswer-update";
+        return "/possibleAnswers/update";
     }
 
     @PostMapping("/{id}/update")

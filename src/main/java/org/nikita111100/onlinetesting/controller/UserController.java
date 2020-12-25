@@ -25,18 +25,19 @@ public class UserController {
     public  String AllUsers(Model model){
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
-        return "user-list";
+        return "users/list";
     }
+
     @GetMapping("/create")
     public String createUserForm(User user) {
-        return "user-create";
+        return "users/create";
     }
 
     @PostMapping("/create")
     public String createUser(User user) {
         User userFromDb = userService.findByName(user.getName());
         if (userFromDb != null) {
-            return "/user-update";
+            return "/users/update";
         }
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
@@ -54,7 +55,7 @@ public class UserController {
     public String updateUserForm(@PathVariable("id") Long id,Model model) {
        User user = userService.findById(id);
         model.addAttribute("user", user);
-        return "/user-update";
+        return "/users/update";
     }
 
     @PostMapping("/{id}/update")

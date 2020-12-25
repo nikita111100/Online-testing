@@ -1,11 +1,13 @@
 package org.nikita111100.onlinetesting.model.persistent;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table( name = "possible_answer")
@@ -24,12 +26,5 @@ public class PossibleAnswer {
 
     @OneToOne(mappedBy="possibleAnswer")
     private AnswerQuestion answerQuestion;
-
-    public PossibleAnswer(Long id, String text, int correctAnswer, Question questions) {
-        this.id = id;
-        this.text = text;
-        this.correctAnswer = correctAnswer;
-        this.questions = questions;
-    }
 
 }

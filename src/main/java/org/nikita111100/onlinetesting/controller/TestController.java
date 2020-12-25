@@ -20,16 +20,17 @@ public class TestController {
     public TestController(TestService testService) {
         this.testService = testService;
     }
+
     @GetMapping
     public String findAll(Model model){
         List<Test> tests = testService.findAll();
         model.addAttribute("tests",tests);
-        return "test-list";
+        return "tests/list";
     }
 
     @GetMapping("/create")
     public String createTestForm(Test test) {
-        return "test-create";
+        return "tests/create";
     }
 
     @PostMapping("/create")
@@ -48,7 +49,7 @@ public class TestController {
     public String updateUserForm(@PathVariable("id") Long id,Model model) {
         Test test = testService.findById(id);
         model.addAttribute("test", test);
-        return "/test-update";
+        return "/tests/update";
     }
 
     @PostMapping("/{id}/update")

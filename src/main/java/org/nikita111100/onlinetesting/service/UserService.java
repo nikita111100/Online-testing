@@ -1,10 +1,8 @@
 package org.nikita111100.onlinetesting.service;
 
-import org.nikita111100.onlinetesting.model.persistent.Question;
 import org.nikita111100.onlinetesting.model.persistent.Role;
 import org.nikita111100.onlinetesting.model.persistent.User;
 import org.nikita111100.onlinetesting.repository.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -36,6 +34,7 @@ public class UserService {
     public User saveUser(User user){
         return userRepo.save(user);
     }
+
     @Transactional
     public void deleteById(Long id){
         userRepo.deleteById(id);

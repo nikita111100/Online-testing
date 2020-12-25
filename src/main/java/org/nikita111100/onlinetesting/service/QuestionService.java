@@ -23,10 +23,12 @@ public class QuestionService {
     public List<Question> findAll(){
         return questionRepo.findAll();
     }
+
     @Transactional
     public Question saveQuestion(Question question){
         return questionRepo.save(question);
     }
+
     @Transactional
     public void deleteById(Long id){
         questionRepo.deleteById(id);
