@@ -5,15 +5,17 @@
     <title></title>
 </head>
 <body>
+<p>[[${message} ? ${message} : '']]</p>
 <form action="#" th:action="@{/questions/{id}/update}" th:object="${question}" method="post">
     <label for="id" >id</label>
     <input readonly type="text" th:field="*{id}" id="id" placeholder="Id">
     <br/>
     <label for="text" >text</label>
     <input type="text" th:field="*{text}" id="text" placeholder="text">
+    <div style="Color:red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
     <br/>
     <label for="test">test</label>
-    <input type="text" th:field="*{test.id}" id="test" placeholder="test">
+    <input readonly type="text" th:field="*{test.id}" id="test" placeholder="test">
     <br/>
     <input type="submit" value="Update question">
 </form>

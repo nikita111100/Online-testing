@@ -6,7 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.lang.invoke.SerializedLambda;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
@@ -20,8 +21,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotEmpty(message = "Заполните поле name ")
+    @Size(min = 2,max=20,message = "Размер поля name должен быть от 2 до 10")
     private String name;
 
+    @NotEmpty(message = "заполните поле password")
+    @Size(min = 2,max=10,message = "Размер поля password должен быть от 2 до 10")
     private String password;
 
     private boolean active;

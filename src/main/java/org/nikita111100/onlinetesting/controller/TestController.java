@@ -4,11 +4,13 @@ import org.nikita111100.onlinetesting.model.persistent.Test;
 import org.nikita111100.onlinetesting.service.TestService;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Repository
@@ -34,7 +36,10 @@ public class TestController {
     }
 
     @PostMapping("/create")
-    public String createTest(Test test) {
+    public String createTest(@Valid Test test, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "tests/create";
+        }
         testService.saveTest(test);
         return "redirect:/tests";
     }
@@ -53,7 +58,10 @@ public class TestController {
     }
 
     @PostMapping("/{id}/update")
-    public String updateTest(Test test){
+    public String updateTest(@Valid Test test, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "/tests/update";
+        }
         testService.saveTest(test);
         return "redirect:/tests";
     }

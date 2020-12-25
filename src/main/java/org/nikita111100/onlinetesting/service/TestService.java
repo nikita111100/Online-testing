@@ -24,6 +24,10 @@ public class TestService {
         return testRepo.findAll();
     }
 
+    public boolean isExists(Long id){
+        return testRepo.existsById(id);
+    }
+
     @Transactional
     public void deleteById(Long id) {
         testRepo.deleteById(id);

@@ -19,6 +19,9 @@ public class QuestionService {
     public Question findById(Long id){
         return questionRepo.getOne(id);
     }
+    public boolean isExists(Long id){
+        return questionRepo.existsById(id);
+    }
 
     public List<Question> findAll(){
         return questionRepo.findAll();

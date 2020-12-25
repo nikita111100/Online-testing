@@ -7,11 +7,10 @@ import org.nikita111100.onlinetesting.service.QuestionService;
 import org.nikita111100.onlinetesting.service.TestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -40,9 +39,16 @@ public class PossibleAnswerController {
     }
 
     @PostMapping("/create")
-    public String createPossibleAnswer(PossibleAnswer possibleAnswer) {
-        possibleAnswerService.savePossibleAnswer(possibleAnswer);
-        return "redirect:/possibleAnswers";
+    public String createPossibleAnswer(@RequestParam("questions.id") Long question, @Valid PossibleAnswer possibleAnswer, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "possibleAnswers/create";
+        } else if (!questionService.isExists(question)) {
+            model.addAttribute("message","вопрос не найден");
+            return "possibleAnswers/create";
+        } else {
+            possibleAnswerService.savePossibleAnswer(possibleAnswer);
+            return "redirect:/possibleAnswers";
+        }
     }
 
     @GetMapping("/{id}/delete")
@@ -59,8 +65,14 @@ public class PossibleAnswerController {
     }
 
     @PostMapping("/{id}/update")
-    public String updatePossibleAnswers(PossibleAnswer possibleAnswer){
+    public String updatePossibleAnswers(@RequestParam("questions.id") Long question, @Valid PossibleAnswer possibleAnswer, BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()) {
+            return "possibleAnswers/create";
+        } else if (!questionService.isExists(question)) {
+            model.addAttribute("message","вопрос не найден");
+            return "possibleAnswers/create";
+        } else {
         possibleAnswerService.savePossibleAnswer(possibleAnswer);
-        return "redirect:/possibleAnswers";
+        return "redirect:/possibleAnswers";}
     }
 }

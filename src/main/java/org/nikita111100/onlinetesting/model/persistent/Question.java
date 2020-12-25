@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Data
@@ -14,8 +15,9 @@ import java.util.List;
 @Table(name = "questions")
 public class Question {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    @NotEmpty(message = "Заполни поле text ")
     private String text;
 
     @ManyToOne

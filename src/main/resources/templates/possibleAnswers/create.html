@@ -5,15 +5,16 @@
     <title>Create question</title>
 </head>
 <body>
+<p>[[${message} ? ${message} : '']]</p>
 <form action="#" th:action="@{/possibleAnswers/create}" th:object="${possibleAnswer}" method="post">
-    <label for="id">id</label>
-    <input type="text" th:field="*{id}" id="id" placeholder="id">
-    <br>
+
     <label for="correctAnswer">correctAnswer</label>
     <input type="text" th:field="*{correctAnswer}" id="correctAnswer" placeholder="correctAnswer">
+    <div style="Color:red" th:if="${#fields.hasErrors('correctAnswer')}" th:errors="*{correctAnswer}"></div>
     <br>
     <label for="text">text</label>
     <input type="text" th:field="*{text}" id="text" placeholder="text">
+    <div style="Color:red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
     <br>
     <label for="questions">question_id</label>
     <input type ="text" th:field="*{questions.id}" id="questions" placeholder="question_id">

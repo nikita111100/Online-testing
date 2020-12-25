@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
@@ -13,8 +15,11 @@ import javax.persistence.*;
 @Table( name = "possible_answer")
 public class PossibleAnswer {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotEmpty(message = "Заполните поле text")
+    @Size(min= 2)
     private String text;
 
     @Column(name= "correct_answer")

@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Table( name = "answer_question")
 public class AnswerQuestion {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne

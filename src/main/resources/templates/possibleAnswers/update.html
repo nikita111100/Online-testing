@@ -11,12 +11,14 @@
     <br/>
     <label for="correctAnswer" >correctAnswer</label>
     <input type="text" th:field="*{correctAnswer}" id="correctAnswer" placeholder="correctAnswer">
+    <div style="Color:red" th:if="${#fields.hasErrors('correctAnswer')}" th:errors="*{correctAnswer}"></div>
     <br/>
     <label for="text" >text</label>
     <input type="text" th:field="*{text}" id="text" placeholder="text">
+    <div style="Color:red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
     <br/>
     <label for="questions">questions.id</label>
-    <input type="text" th:field="*{questions.id}" id="questions" placeholder="question_id">
+    <input readonly type="text" th:field="*{questions.id}" id="questions" placeholder="question_id">
     <br/>
     <input type="submit" value="Update question">
 </form>

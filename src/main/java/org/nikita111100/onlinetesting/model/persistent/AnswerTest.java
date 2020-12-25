@@ -10,6 +10,7 @@ import java.util.List;
 @Table( name = "answer_test")
 public class AnswerTest {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private int result;
