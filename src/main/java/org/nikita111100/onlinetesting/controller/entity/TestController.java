@@ -1,4 +1,4 @@
-package org.nikita111100.onlinetesting.controller;
+package org.nikita111100.onlinetesting.controller.entity;
 
 import org.nikita111100.onlinetesting.model.persistent.Test;
 import org.nikita111100.onlinetesting.service.TestService;

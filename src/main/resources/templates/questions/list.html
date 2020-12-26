@@ -14,12 +14,14 @@
             <tr>
                 <th>id</th>
                 <th>text</th>
+                <th>test.id</th>
             </tr>
             </thead>
             <tr>
             <tr th:each ="question : ${questions}">
                 <td th:text = "${question.id}"></td>
                 <td th:text = "${question.text}"></td>
+                <td th:text = "${question.test.id}"></td>
                 <td> <a  th:href = "@{questions/{id}/update(id=${question.id})}">Edit</a></td>
                 <td> <a th:href = "@{questions/{id}/delete(id=${question.id})}">Delete</a></td>
             </tr>

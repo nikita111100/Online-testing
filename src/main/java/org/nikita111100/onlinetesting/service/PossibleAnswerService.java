@@ -25,7 +25,7 @@ public class PossibleAnswerService {
     }
 
     @Transactional
-    public PossibleAnswer savePossibleAnswer(PossibleAnswer possibleAnswer) {
+    public PossibleAnswer save(PossibleAnswer possibleAnswer) {
         return pAnswerRepo.save(possibleAnswer);
     }
 

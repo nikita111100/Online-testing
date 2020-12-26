@@ -33,7 +33,7 @@ public class Test {
     @OneToMany(mappedBy = "test",cascade = CascadeType.REMOVE)
     private List<Question> questions;
 
-    @OneToMany(mappedBy = "test")
+    @OneToMany(mappedBy = "test",cascade = CascadeType.REMOVE)
     private List<AnswerTest> answerTests;
 
     public Test(Long id, String name, String theme) {

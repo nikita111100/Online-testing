@@ -15,6 +15,7 @@
                 <th>id</th>
                 <th>correct answer</th>
                 <th>text</th>
+                <th>question.id</th>
             </tr>
             </thead>
             <tr>
@@ -22,6 +23,7 @@
                 <td th:text = "${possibleAnswer.id}"></td>
                 <td th:text = "${possibleAnswer.correctAnswer}"></td>
                 <td th:text = "${possibleAnswer.text}"></td>
+                <td th:text = "${possibleAnswer.questions.id}"></td>
                 <td> <a  th:href = "@{possibleAnswers/{id}/update(id=${possibleAnswer.id})}">Edit</a></td>
                 <td> <a th:href = "@{possibleAnswers/{id}/delete(id=${possibleAnswer.id})}">Delete</a></td>
             </tr>

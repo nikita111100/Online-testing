@@ -12,7 +12,7 @@
     <div style="Color:red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
     <br>
     <label for="test">text_id</label>
-    <input type="text" th:field="*{test.id}" id="test" placeholder="test_id">
+    <input type="text" th:field="*{test.id}" id="test" placeholder="test_id" required>
     <br>
     <input type="submit" value="Create questions">
 </form>

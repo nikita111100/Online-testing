@@ -17,6 +17,7 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @NotEmpty(message = "Заполни поле text ")
     private String text;
 

@@ -20,5 +20,4 @@ public class AnswerQuestion {
     @JoinColumn(name = "possible_answer_id")
     private PossibleAnswer possibleAnswer;
 
-
 }

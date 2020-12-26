@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:switch="${answerTests}">
+    <h2 th:case = "null">No answerTests found!</h2>
+    <div th:case="*">
+        <h2>Answer Tests</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>result</th>
+                <th>test_id</th>
+                <th>user_id</th>
+            </tr>
+            </thead>
+            <tr>
+            <tr th:each ="answerTest : ${answerTests}">
+                <td th:text = "${answerTest.id}"></td>
+                <td th:text = "${answerTest.result}"></td>
+                <td th:text = "${answerTest.test.id}"></td>
+                <td th:text = "${answerTest.user.id}"></td>
+            <td> <a th:href = "@{answerTests/{id}/delete(id=${answerTest.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

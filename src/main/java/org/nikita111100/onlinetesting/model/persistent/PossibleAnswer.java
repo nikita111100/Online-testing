@@ -29,7 +29,7 @@ public class PossibleAnswer {
     @JoinColumn(name= "questions_id")
     private Question questions;
 
-    @OneToOne(mappedBy="possibleAnswer")
+    @OneToOne(mappedBy="possibleAnswer" , cascade = CascadeType.REMOVE)
     private AnswerQuestion answerQuestion;
 
 }

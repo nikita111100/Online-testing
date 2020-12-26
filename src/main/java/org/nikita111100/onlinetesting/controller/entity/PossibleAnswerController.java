@@ -1,4 +1,4 @@
-package org.nikita111100.onlinetesting.controller;
+package org.nikita111100.onlinetesting.controller.entity;
 
 import org.nikita111100.onlinetesting.model.persistent.PossibleAnswer;
 import org.nikita111100.onlinetesting.model.persistent.Question;
@@ -46,7 +46,7 @@ public class PossibleAnswerController {
             model.addAttribute("message","вопрос не найден");
             return "possibleAnswers/create";
         } else {
-            possibleAnswerService.savePossibleAnswer(possibleAnswer);
+            possibleAnswerService.save(possibleAnswer);
             return "redirect:/possibleAnswers";
         }
     }
@@ -72,7 +72,7 @@ public class PossibleAnswerController {
             model.addAttribute("message","вопрос не найден");
             return "possibleAnswers/create";
         } else {
-        possibleAnswerService.savePossibleAnswer(possibleAnswer);
+        possibleAnswerService.save(possibleAnswer);
         return "redirect:/possibleAnswers";}
     }
 }

@@ -15,7 +15,7 @@
     <div style="Color:red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
     <br/>
     <label for="test">test</label>
-    <input readonly type="text" th:field="*{test.id}" id="test" placeholder="test">
+    <input readonly type="text" th:field="*{test.id}" id="test" placeholder="test" required>
     <br/>
     <input type="submit" value="Update question">
 </form>

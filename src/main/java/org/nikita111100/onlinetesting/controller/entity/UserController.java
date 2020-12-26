@@ -1,4 +1,4 @@
-package org.nikita111100.onlinetesting.controller;
+package org.nikita111100.onlinetesting.controller.entity;
 
 import org.nikita111100.onlinetesting.model.persistent.Role;
 import org.nikita111100.onlinetesting.model.persistent.User;
