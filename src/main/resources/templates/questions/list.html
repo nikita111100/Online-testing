@@ -22,11 +22,14 @@
                 <td th:text = "${question.id}"></td>
                 <td th:text = "${question.text}"></td>
                 <td th:text = "${question.test.id}"></td>
-                <td> <a  th:href = "@{questions/{id}/update(id=${question.id})}">Edit</a></td>
-                <td> <a th:href = "@{questions/{id}/delete(id=${question.id})}">Delete</a></td>
+                <td> <a  th:href = "@{{questionId}/possibleAnswers(questionId=${question.id})}">Варианты ответа</a></td>
+                <td> <a  th:href = "@{questions/{questionId}/update(questionId=${question.id})}">Edit</a></td>
+                <td> <a th:href = "@{questions/{questionId}/delete(questionId=${question.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
     <p><a href ="questions/create"> Create questions</a> </p>
+    <br>
+    <p><a href ="/tests">Вернуться к тестам</a> </p>
 </div>

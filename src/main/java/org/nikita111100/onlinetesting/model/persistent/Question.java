@@ -34,4 +34,7 @@ public class Question {
         this.test = test;
     }
 
+    public void setTest(Test test) {
+        this.test = test;
+    }
 }

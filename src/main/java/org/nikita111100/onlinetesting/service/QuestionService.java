@@ -27,6 +27,10 @@ public class QuestionService {
         return questionRepo.findAll();
     }
 
+    public List<Question> findAllQuestionsByTestId(Long test){
+        return questionRepo.findAllQuestionByTestId(test);
+    }
+
     @Transactional
     public Question saveQuestion(Question question){
         return questionRepo.save(question);

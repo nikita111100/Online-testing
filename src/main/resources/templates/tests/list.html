@@ -22,6 +22,7 @@
                 <td th:text = "${test.id}"></td>
                 <td th:text = "${test.name}"></td>
                 <td th:text = "${test.theme}"></td>
+            <td> <a th:href = "@{{testId}/questions(testId=${test.id})}">Вопросы к тесту</a></td>
             <td> <a  th:href = "@{tests/{id}/update(id=${test.id})}">Edit</a></td>
             <td> <a th:href = "@{tests/{id}/delete(id=${test.id})}">Delete</a></td>
             </tr>
@@ -29,6 +30,8 @@
         </table>
     </div>
     <p><a href ="tests/create"> Create test </a> </p>
+    <br>
+    <p><a href ="/"> вернуться на главную страницу</a> </p>
 </div>
 </body>
 </html>

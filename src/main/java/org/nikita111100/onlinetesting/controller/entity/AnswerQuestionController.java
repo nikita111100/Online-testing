@@ -28,7 +28,7 @@ public class AnswerQuestionController {
     }
 
     @GetMapping("/{id}/delete")
-    public String deleteanswerQuestion(@PathVariable("id") Long id) {
+    public String deleteAnswerQuestion(@PathVariable("id") Long id) {
         answerQuestionService.deleteById(id);
         return "redirect:/answerQuestions";
     }

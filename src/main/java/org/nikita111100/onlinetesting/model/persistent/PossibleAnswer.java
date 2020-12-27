@@ -32,4 +32,7 @@ public class PossibleAnswer {
     @OneToOne(mappedBy="possibleAnswer" , cascade = CascadeType.REMOVE)
     private AnswerQuestion answerQuestion;
 
+    public void setQuestions(Question questions) {
+        this.questions = questions;
+    }
 }

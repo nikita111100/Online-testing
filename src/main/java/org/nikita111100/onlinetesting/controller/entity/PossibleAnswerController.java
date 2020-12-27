@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/possibleAnswers")
+@RequestMapping("/{testId}/{questionId}/possibleAnswers")
 public class PossibleAnswerController {
     private final PossibleAnswerService possibleAnswerService;
     private final QuestionService questionService;
@@ -25,11 +25,9 @@ public class PossibleAnswerController {
     }
 
     @GetMapping
-    public String findAll(Model model){
-        List<PossibleAnswer> possibleAnswers = possibleAnswerService.findAll();
-        List<Question> questions = questionService.findAll();
-        model.addAttribute("questions", questions);
-        model.addAttribute("possibleAnswers",possibleAnswers);
+    public String findAllPossibleAnswersByQuestion(@PathVariable("questionId") Long questionId, Model model) {
+        List<PossibleAnswer> possibleAnswers = possibleAnswerService.findAllPossibleAnswersByQuestionId(questionId);
+        model.addAttribute("possibleAnswers", possibleAnswers);
         return "possibleAnswers/list";
     }
 
@@ -39,40 +37,43 @@ public class PossibleAnswerController {
     }
 
     @PostMapping("/create")
-    public String createPossibleAnswer(@RequestParam("questions.id") Long question, @Valid PossibleAnswer possibleAnswer, BindingResult bindingResult, Model model) {
+    public String createPossibleAnswer(@PathVariable("questionId") Long questionId, @Valid PossibleAnswer possibleAnswer, BindingResult bindingResult,Model model) {
         if (bindingResult.hasErrors()) {
             return "possibleAnswers/create";
-        } else if (!questionService.isExists(question)) {
-            model.addAttribute("message","вопрос не найден");
-            return "possibleAnswers/create";
-        } else {
-            possibleAnswerService.save(possibleAnswer);
-            return "redirect:/possibleAnswers";
         }
-    }
-
-    @GetMapping("/{id}/delete")
-    public String deletePossibleAnswer(@PathVariable("id") Long id) {
-        possibleAnswerService.deleteById(id);
-        return "redirect:/possibleAnswers";
-    }
-
-    @GetMapping("/{id}/update")
-    public String updatePossibleAnswerForm(@PathVariable("id") Long id,Model model) {
-        PossibleAnswer possibleAnswer = possibleAnswerService.findById(id);
-        model.addAttribute("possibleAnswer", possibleAnswer);
-        return "/possibleAnswers/update";
-    }
-
-    @PostMapping("/{id}/update")
-    public String updatePossibleAnswers(@RequestParam("questions.id") Long question, @Valid PossibleAnswer possibleAnswer, BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors()) {
-            return "possibleAnswers/create";
-        } else if (!questionService.isExists(question)) {
-            model.addAttribute("message","вопрос не найден");
-            return "possibleAnswers/create";
-        } else {
+        Question question = questionService.findById(questionId);
+        possibleAnswer.setQuestions(question);
         possibleAnswerService.save(possibleAnswer);
-        return "redirect:/possibleAnswers";}
+        return "redirect:/{testId}/{questionId}/possibleAnswers";
+    }
+
+    @GetMapping("/{possibleAnswerId}/delete")
+    public String deletePossibleAnswer(@PathVariable("possibleAnswerId") Long id) {
+        if (possibleAnswerService.isExists(id)) {
+            possibleAnswerService.deleteById(id);
+        }
+        return "redirect:/{testId}/{questionId}/possibleAnswers";
+    }
+
+    @GetMapping("/{possibleAnswerId}/update")
+    public String updatePossibleAnswerForm(@PathVariable("possibleAnswerId") Long id, Model model) {
+        if (possibleAnswerService.isExists(id)) {
+            PossibleAnswer possibleAnswer = possibleAnswerService.findById(id);
+            model.addAttribute("possibleAnswer", possibleAnswer);
+            return "possibleAnswers/update";
+        }
+        return "redirect:/{testId}/{questionId}/possibleAnswers";
+    }
+
+    @PostMapping("/{possibleAnswerId}/update")
+    public String updatePossibleAnswers(@PathVariable("questionId") Long questionId, @Valid PossibleAnswer possibleAnswer, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "possibleAnswers/update";
+        }
+        Question question = questionService.findById(questionId);
+        possibleAnswer.setQuestions(question);
+        possibleAnswerService.save(possibleAnswer);
+        return "redirect:/{testId}/{questionId}/possibleAnswers";
+
     }
 }

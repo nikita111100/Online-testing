@@ -24,9 +24,9 @@ public class TestController {
     }
 
     @GetMapping
-    public String findAll(Model model){
+    public String findAll(Model model) {
         List<Test> tests = testService.findAll();
-        model.addAttribute("tests",tests);
+        model.addAttribute("tests", tests);
         return "tests/list";
     }
 
@@ -37,7 +37,7 @@ public class TestController {
 
     @PostMapping("/create")
     public String createTest(@Valid Test test, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "tests/create";
         }
         testService.saveTest(test);
@@ -46,20 +46,25 @@ public class TestController {
 
     @GetMapping("/{id}/delete")
     public String deleteTest(@PathVariable("id") Long id) {
-        testService.deleteById(id);
+        if (testService.isExists(id)) {
+            testService.deleteById(id);
+        }
         return "redirect:/tests";
     }
 
     @GetMapping("/{id}/update")
-    public String updateUserForm(@PathVariable("id") Long id,Model model) {
-        Test test = testService.findById(id);
-        model.addAttribute("test", test);
-        return "/tests/update";
+    public String updateUserForm(@PathVariable("id") Long id, Model model) {
+        if (testService.isExists(id)) {
+            Test test = testService.findById(id);
+            model.addAttribute("test", test);
+            return "/tests/update";
+        }
+        return "redirect:/tests";
     }
 
     @PostMapping("/{id}/update")
-    public String updateTest(@Valid Test test, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
+    public String updateTest(@Valid Test test, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "/tests/update";
         }
         testService.saveTest(test);

@@ -23,6 +23,12 @@ public class PossibleAnswerService {
     public PossibleAnswer findById(Long id) {
         return pAnswerRepo.getOne(id);
     }
+    public List<PossibleAnswer> findAllPossibleAnswersByQuestionId (Long id){
+        return pAnswerRepo.findAllPossibleAnswerByQuestionsId(id);
+    }
+    public boolean isExists(Long id){
+        return pAnswerRepo.existsById(id);
+    }
 
     @Transactional
     public PossibleAnswer save(PossibleAnswer possibleAnswer) {
