@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"  >
 </head>
 <body>
+<header th:insert="blocks/header :: header"></header>
 <div th:switch="${tests}">
     <h2 th:case = "null">No test found!</h2>
     <div th:case="*">

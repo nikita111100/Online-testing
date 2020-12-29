@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
@@ -19,6 +20,7 @@ public class Question {
     private Long id;
 
     @NotEmpty(message = "Заполни поле text ")
+    @Size(min = 2,max = 500,message = "Размер должен быть от 2 до 500 символов")
     private String text;
 
     @ManyToOne
@@ -36,5 +38,9 @@ public class Question {
 
     public void setTest(Test test) {
         this.test = test;
+    }
+
+    public String getText() {
+        return text;
     }
 }

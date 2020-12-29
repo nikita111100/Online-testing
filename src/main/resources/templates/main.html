@@ -3,18 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Это главная страница</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"  >
 </head>
 <body>
-<p>Это главная страница</p>
-<p>Тут будут все тесты</p>
-<p><a href ="/tests"> Создание теста </a> </p>
-<p><a href ="/users"> Создание пользователя </a> </p>
-<p><a href ="/answerQuestions">  ответа на вопрос </a> </p>
-<p><a href ="/answerTests">  ответа на тест </a> </p>
-<div>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
+<header th:insert ="blocks/header :: header"></header>
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <tr th:each ="test : ${tests}">
+            <div class="col mb-3">
+                <div class="card shadow-sm ">
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title th:text = "${test.name}">Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="20%" y="50%" fill="#eceeef" dy=".3em" th:text = "${test.name}" >Thumbnail</text></svg>
+                    <div class="card-body">
+                        <strong class="card-text" th:text = "${test.name}"></strong>
+                        <p class="card-text"th:text = "${test.theme}"></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Пройти тест</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                            </div>
+                            <small class="text-muted">9 mins</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </tr>
+        </div>
+    </div>
 </div>
+<footer class="text-muted py-5">
+    <div class="container">
+        <p class="push-left mb-1">
+            <a href="/">Back to top</a>
+        </p>
+        <p class="mb-1">Это простой сервис по тестированию на различные темы, тут вы можете проверить свои знания!</p>
+        <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.0/getting-started/introduction/">getting started guide</a>.</p>
+    </div>
+</footer>
 </body>
 </html>

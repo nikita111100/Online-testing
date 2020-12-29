@@ -19,7 +19,7 @@ public class PossibleAnswer {
     private Long id;
 
     @NotEmpty(message = "Заполните поле text")
-    @Size(min= 2)
+    @Size(min= 2,max=500,message = "Размер должен быть от 2 до 500 символов")
     private String text;
 
     @Column(name= "correct_answer")
@@ -34,5 +34,9 @@ public class PossibleAnswer {
 
     public void setQuestions(Question questions) {
         this.questions = questions;
+    }
+
+    public void setCorrectAnswer(int correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
 }

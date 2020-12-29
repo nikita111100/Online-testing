@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"  >
 </head>
 <body>
+<header th:insert="blocks/header :: header"></header>
 <form action="#" th:action="@{update}" th:object="${possibleAnswer}" method="post">
-    <label for="correctAnswer" >correctAnswer</label>
-    <input type="text" th:field="*{correctAnswer}" id="correctAnswer" placeholder="correctAnswer">
-    <div style="Color:red" th:if="${#fields.hasErrors('correctAnswer')}" th:errors="*{correctAnswer}"></div>
+    <input type hidden="text" th:field="*{id}" id="id" placeholder="id">
+    <br>
+    <label>correct answer</label>
+    <input type="checkbox" name="correctChecked"/>
     <br/>
     <label for="text" >text</label>
     <input type="text" th:field="*{text}" id="text" placeholder="text">
     <div style="Color:red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
+    <br/>
+    <input type hidden="text" th:field="*{questions.id}" value="${questions.id}" id="questions">
     <br/>
     <input type="submit" value="Update question">
 </form>

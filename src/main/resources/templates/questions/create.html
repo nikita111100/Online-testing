@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Create question</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"  >
 </head>
 <body>
+<header th:insert="blocks/header :: header"></header>
 <form action="#" th:action="@{create}" th:object="${question}" method="post">
     <label for="text">text</label>
     <input type="text" th:field="*{text}" id="text" placeholder="text">

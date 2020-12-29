@@ -37,10 +37,16 @@ public class PossibleAnswerController {
     }
 
     @PostMapping("/create")
-    public String createPossibleAnswer(@PathVariable("questionId") Long questionId, @Valid PossibleAnswer possibleAnswer, BindingResult bindingResult,Model model) {
+    public String createPossibleAnswer(@RequestParam(value = "correctChecked", required = false) String rolesChecked,
+                                       @PathVariable("questionId") Long questionId,
+                                       @Valid PossibleAnswer possibleAnswer, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "possibleAnswers/create";
         }
+        if (rolesChecked != null) {
+            possibleAnswer.setCorrectAnswer(1);
+        }else{
+            possibleAnswer.setCorrectAnswer(0);}
         Question question = questionService.findById(questionId);
         possibleAnswer.setQuestions(question);
         possibleAnswerService.save(possibleAnswer);
@@ -66,12 +72,15 @@ public class PossibleAnswerController {
     }
 
     @PostMapping("/{possibleAnswerId}/update")
-    public String updatePossibleAnswers(@PathVariable("questionId") Long questionId, @Valid PossibleAnswer possibleAnswer, BindingResult bindingResult) {
+    public String updatePossibleAnswers(@RequestParam(value = "correctChecked", required = false) String rolesChecked,
+                                        @Valid PossibleAnswer possibleAnswer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "possibleAnswers/update";
         }
-        Question question = questionService.findById(questionId);
-        possibleAnswer.setQuestions(question);
+        if (rolesChecked != null) {
+            possibleAnswer.setCorrectAnswer(1);
+        }else{
+            possibleAnswer.setCorrectAnswer(0);}
         possibleAnswerService.save(possibleAnswer);
         return "redirect:/{testId}/{questionId}/possibleAnswers";
 

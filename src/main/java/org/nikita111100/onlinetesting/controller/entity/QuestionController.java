@@ -69,12 +69,11 @@ public class QuestionController {
     }
 
     @PostMapping("/{questionId}/update")
-    public String updateQuestion(@PathVariable("testId") Long testId, @Valid Question question, BindingResult bindingResult) {
+    public String updateQuestion(@Valid Question question, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "questions/update";
         }
-        Test test = testService.findById(testId);
-        question.setTest(test);
+        System.out.println(question.getText());
         questionService.saveQuestion(question);
         return "redirect:/{testId}/questions";
     }

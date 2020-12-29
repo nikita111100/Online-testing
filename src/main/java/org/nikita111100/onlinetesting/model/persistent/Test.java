@@ -17,11 +17,11 @@ public class Test {
     private Long id;
 
     @NotEmpty(message = "Заполни поле name ")
-    @Size(min=2,max=40,message = "Поле должно быть от 2 до 40 символов")
+    @Size(min=2,max=100,message = "Размер должен быть от 2 до 100 символов")
     private String name;
 
     @NotEmpty(message = "Заполни поле theme ")
-    @Size(min=2,max=40,message = "Поле должно быть от 2 до 40 символов")
+    @Size(min=2,max=500,message = "Размер должен быть от 2 до 500 символов")
     private String theme;
 
     @ManyToMany

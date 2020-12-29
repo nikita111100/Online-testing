@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Create question</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"  >
 </head>
 <body>
+<header th:insert="blocks/header :: header"></header>
 <p>[[${message} ? ${message} : '']]</p>
 <form action="#" th:action="@{create}" th:object="${possibleAnswer}" method="post">
-    <label for="correctAnswer">correctAnswer</label>
-    <input type="text" th:field="*{correctAnswer}" id="correctAnswer" placeholder="correctAnswer">
+    <label>correct answer</label>
+    <input type="checkbox" name="correctChecked"/>
+    <br/>
     <div style="Color:red" th:if="${#fields.hasErrors('correctAnswer')}" th:errors="*{correctAnswer}"></div>
     <br>
     <label for="text">text</label>
