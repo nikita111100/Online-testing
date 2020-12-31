@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"  >
 </head>
 <body>
+<header th:insert="blocks/header :: header"></header>
 <div th:switch="${questions}">
     <h2 th:case = "null">No questions found!</h2>
     <div th:case="*">
@@ -14,40 +16,22 @@
             <tr>
                 <th>id</th>
                 <th>text</th>
+                <th>test.id</th>
             </tr>
             </thead>
             <tr>
             <tr th:each ="question : ${questions}">
                 <td th:text = "${question.id}"></td>
                 <td th:text = "${question.text}"></td>
-                <td> <a  th:href = "@{questions/{id}/update(id=${question.id})}">Edit</a></td>
-                <td> <a th:href = "@{questions/{id}/delete(id=${question.id})}">Delete</a></td>
+                <td th:text = "${question.test.id}"></td>
+                <td> <a  th:href = "@{{questionId}/possibleAnswers(questionId=${question.id})}">Варианты ответа</a></td>
+                <td> <a  th:href = "@{questions/{questionId}/update(questionId=${question.id})}">Edit</a></td>
+                <td> <a th:href = "@{questions/{questionId}/delete(questionId=${question.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
     <p><a href ="questions/create"> Create questions</a> </p>
+    <br>
+    <p><a href ="/tests">Вернуться к тестам</a> </p>
 </div>
-
-<div th:switch="${tests}">
-    <h2 th:case = "null">No test found!</h2>
-    <div th:case="*">
-        <h2>Test</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>id</th>
-                <th>name</th>
-            </tr>
-            </thead>
-            <tr>
-            <tr th:each ="test : ${tests}">
-                <td th:text = "${test.id}"></td>
-                <td th:text = "${test.name}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-</body>
-</html>

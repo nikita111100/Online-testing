@@ -3,6 +3,8 @@ package org.nikita111100.onlinetesting.model.persistent;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
@@ -11,10 +13,15 @@ import java.util.List;
 @Table( name = "test")
 public class Test {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotEmpty(message = "Заполни поле name ")
+    @Size(min=2,max=100,message = "Размер должен быть от 2 до 100 символов")
     private String name;
 
+    @NotEmpty(message = "Заполни поле theme ")
+    @Size(min=2,max=500,message = "Размер должен быть от 2 до 500 символов")
     private String theme;
 
     @ManyToMany
@@ -26,7 +33,7 @@ public class Test {
     @OneToMany(mappedBy = "test",cascade = CascadeType.REMOVE)
     private List<Question> questions;
 
-    @OneToMany(mappedBy = "test")
+    @OneToMany(mappedBy = "test",cascade = CascadeType.REMOVE)
     private List<AnswerTest> answerTests;
 
     public Test(Long id, String name, String theme) {

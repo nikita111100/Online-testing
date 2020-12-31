@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"  >
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div th:switch="${possibleAnswers}">
+    <h2 th:case = "null">No possibleAnswers found!</h2>
+    <div th:case="*">
+        <h2>Possible answers</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>correct answer</th>
+                <th>text</th>
+                <th>question.id</th>
+            </tr>
+            </thead>
+            <tr>
+            <tr th:each ="possibleAnswer : ${possibleAnswers}">
+                <td th:text = "${possibleAnswer.id}"></td>
+                <td th:text = "${possibleAnswer.correctAnswer}"></td>
+                <td th:text = "${possibleAnswer.text}"></td>
+                <td th:text = "${possibleAnswer.questions.id}"></td>
+                <td> <a th:href = "@{possibleAnswers/{possibleAnswerId}/update(possibleAnswerId=${possibleAnswer.id})}">Edit</a></td>
+                <td> <a th:href = "@{possibleAnswers/{possibleAnswerId}/delete(possibleAnswerId=${possibleAnswer.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href ="possibleAnswers/create"> Create possible answer</a> </p>
+    <br>
+    <p><a href="/tests"> Вернутся к тесту</a> </p>
+</div>

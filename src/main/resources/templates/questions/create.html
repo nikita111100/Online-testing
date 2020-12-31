@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create question</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"  >
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<form action="#" th:action="@{create}" th:object="${question}" method="post">
+    <label for="text">text</label>
+    <input type="text" th:field="*{text}" id="text" placeholder="text">
+    <div style="Color:red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
+    <br>
+    <input type="submit" value="Create questions">
+</form>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Update test</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"  >
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<form action="#" th:action="@{/tests/{id}/update}" th:object="${test}" method="post">
+    <label for="id" >id</label>
+    <input readonly type="text" th:field="*{id}" id="id" placeholder="Id">
+    <br/>
+    <label for="name" >text</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="name">
+    <div style="Color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <br/>
+    <label for="theme">theme</label>
+    <input type="text" th:field="*{theme}" id="theme" placeholder="theme">
+    <div style="Color:red" th:if="${#fields.hasErrors('theme')}" th:errors="*{theme}"></div>
+    <br/>
+    <input type="submit" value="Update test">
+</form>
+
+</body>
+</html>

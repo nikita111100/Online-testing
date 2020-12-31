@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create question</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"  >
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<p>[[${message} ? ${message} : '']]</p>
+<form action="#" th:action="@{/users/create}" th:object="${user}" method="post">
+    <label for="name">name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="name">
+    <div style="Color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <br>
+    <label for="password">password</label>
+    <input type="text" th:field="*{password}" id="password" placeholder="password">
+    <div style="Color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+    <br>
+    <label> ADMIN </label>
+    <input type="checkbox" name="rolesChecked"/>
+    <br>
+    <input type="submit" value="Create user">
+</form>
+</body>
+</html>
