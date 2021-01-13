@@ -57,7 +57,7 @@ public class TestController {
         if (testService.isExists(id)) {
             Test test = testService.findById(id);
             model.addAttribute("test", test);
-            return "/tests/update";
+            return "tests/update";
         }
         return "redirect:/tests";
     }
@@ -65,7 +65,7 @@ public class TestController {
     @PostMapping("/{id}/update")
     public String updateTest(@Valid Test test, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/tests/update";
+            return "tests/update";
         }
         testService.saveTest(test);
         return "redirect:/tests";

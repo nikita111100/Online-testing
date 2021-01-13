@@ -1,6 +1,5 @@
 package org.nikita111100.onlinetesting.controller.entity;
 
-import lombok.ToString;
 import org.nikita111100.onlinetesting.model.persistent.Question;
 import org.nikita111100.onlinetesting.model.persistent.Test;
 import org.nikita111100.onlinetesting.service.QuestionService;
@@ -11,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -73,7 +71,6 @@ public class QuestionController {
         if (bindingResult.hasErrors()) {
             return "questions/update";
         }
-        System.out.println(question.getText());
         questionService.saveQuestion(question);
         return "redirect:/{testId}/questions";
     }

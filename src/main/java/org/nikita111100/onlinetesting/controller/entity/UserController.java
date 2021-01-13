@@ -72,7 +72,7 @@ public class UserController {
         if (userService.ifExists(id)) {
             User user = userService.findById(id);
             model.addAttribute("user", user);
-            return "/users/update";
+            return "users/update";
         }
         return "redirect:/users";
 
@@ -83,7 +83,7 @@ public class UserController {
                              @RequestParam("name") String name,
                              @Valid User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "/users/update";
+            return "users/update";
         }
         if (roles != null) {
             user.setRoles(Collections.singleton(Role.ADMIN));
@@ -100,7 +100,7 @@ public class UserController {
             return "redirect:/users";
         } else if (userService.findByName(name) != null) {
             model.addAttribute("message", "Это имя занято, введите другое");
-            return "/users/update";
+            return "users/update";
         }
         return "redirect:/users";
     }
