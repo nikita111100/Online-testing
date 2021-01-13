@@ -7,7 +7,20 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Collection;
@@ -25,11 +38,11 @@ public class User implements UserDetails {
     private Long id;
 
     @NotEmpty(message = "Заполните поле name ")
-    @Size(min = 2,max=20,message = "Размер поля name должен быть от 2 до 10")
+    @Size(min = 2, max = 20, message = "Размер поля name должен быть от 2 до 10")
     private String name;
 
     @NotEmpty(message = "заполните поле password")
-    @Size(min = 2,max=10,message = "Размер поля password должен быть от 2 до 10")
+    @Size(min = 2, max = 10, message = "Размер поля password должен быть от 2 до 10")
     private String password;
 
     private boolean active;
@@ -39,27 +52,11 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "users")
-    private List<Test> tests ;
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
+    private List<Test> tests;
 
-    @OneToMany(mappedBy = "user" , cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<AnswerTest> answerTests;
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -98,37 +95,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return isActive();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<Test> getTests() {
-        return tests;
-    }
-
-    public void setTests(List<Test> tests) {
-        this.tests = tests;
-    }
-
-    public List<AnswerTest> getAnswerTests() {
-        return answerTests;
-    }
-
-    public void setAnswerTests(List<AnswerTest> answerTests) {
-        this.answerTests = answerTests;
     }
 }

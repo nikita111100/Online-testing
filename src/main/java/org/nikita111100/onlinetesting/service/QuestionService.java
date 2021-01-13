@@ -12,32 +12,33 @@ public class QuestionService {
 
     private final QuestionRepo questionRepo;
 
-    public QuestionService( QuestionRepo questionRepo) {
-        this.questionRepo = questionRepo;
+    public QuestionService(QuestionRepo questionRepository) {
+        this.questionRepo = questionRepository;
     }
 
-    public Question findById(Long id){
+    public  Question findById(Long id) {
         return questionRepo.getOne(id);
     }
-    public boolean isExists(Long id){
+
+    public  boolean isExists(Long id) {
         return questionRepo.existsById(id);
     }
 
-    public List<Question> findAll(){
+    public  List<Question> findAll() {
         return questionRepo.findAll();
     }
 
-    public List<Question> findAllQuestionsByTestId(Long test){
+    public  List<Question> findAllQuestionsByTestId(final Long test) {
         return questionRepo.findAllQuestionByTestId(test);
     }
 
     @Transactional
-    public Question saveQuestion(Question question){
+    public Question saveQuestion(Question question) {
         return questionRepo.save(question);
     }
 
     @Transactional
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         questionRepo.deleteById(id);
     }
 }

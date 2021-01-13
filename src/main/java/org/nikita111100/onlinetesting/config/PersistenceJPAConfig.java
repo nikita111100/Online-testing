@@ -33,7 +33,7 @@ public class PersistenceJPAConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan(new String[] { "org.nikita111100.onlinetesting.model.persistent" });
+        em.setPackagesToScan(new String[] {"org.nikita111100.onlinetesting.model.persistent" });
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
