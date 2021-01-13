@@ -20,9 +20,9 @@ public class Main {
     }
 
     @GetMapping("/")
-    public String main(@AuthenticationPrincipal User user, Model model){
+    public String main(@AuthenticationPrincipal User user, Model model) {
         List<Test> tests = testService.findAll();
-        model.addAttribute("tests",tests);
+        model.addAttribute("tests", tests);
         return "main";
     }
 }

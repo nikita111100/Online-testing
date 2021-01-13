@@ -8,7 +8,11 @@ import org.nikita111100.onlinetesting.service.TestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -19,7 +23,9 @@ public class PossibleAnswerController {
     private final PossibleAnswerService possibleAnswerService;
     private final QuestionService questionService;
 
-    public PossibleAnswerController(PossibleAnswerService possibleAnswerService, QuestionService questionService, TestService testService) {
+    public PossibleAnswerController(PossibleAnswerService possibleAnswerService,
+                                    QuestionService questionService,
+                                    TestService testService) {
         this.possibleAnswerService = possibleAnswerService;
         this.questionService = questionService;
     }
@@ -45,8 +51,9 @@ public class PossibleAnswerController {
         }
         if (rolesChecked != null) {
             possibleAnswer.setCorrectAnswer(1);
-        }else{
-            possibleAnswer.setCorrectAnswer(0);}
+        } else {
+            possibleAnswer.setCorrectAnswer(0);
+        }
         Question question = questionService.findById(questionId);
         possibleAnswer.setQuestions(question);
         possibleAnswerService.save(possibleAnswer);
@@ -79,8 +86,9 @@ public class PossibleAnswerController {
         }
         if (rolesChecked != null) {
             possibleAnswer.setCorrectAnswer(1);
-        }else{
-            possibleAnswer.setCorrectAnswer(0);}
+        } else {
+            possibleAnswer.setCorrectAnswer(0);
+        }
         possibleAnswerService.save(possibleAnswer);
         return "redirect:/{testId}/{questionId}/possibleAnswers";
 

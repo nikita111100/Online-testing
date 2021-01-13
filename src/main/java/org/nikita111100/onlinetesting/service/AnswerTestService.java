@@ -12,8 +12,8 @@ public class AnswerTestService {
 
     private final AnswerTestRepo answerTestRepo;
 
-    public AnswerTestService(AnswerTestRepo answerTestRepo) {
-        this.answerTestRepo = answerTestRepo;
+    public AnswerTestService(AnswerTestRepo answerTestRepository) {
+        this.answerTestRepo = answerTestRepository;
     }
 
     public List<AnswerTest> findAll() {

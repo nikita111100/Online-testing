@@ -12,8 +12,8 @@ public class AnswerQuestionService {
 
     private final AnswerQuestionRepo answerQuestionRepo;
 
-    public AnswerQuestionService(AnswerQuestionRepo answerQuestionRepo) {
-        this.answerQuestionRepo = answerQuestionRepo;
+    public AnswerQuestionService(AnswerQuestionRepo answerQuestionRepository) {
+        this.answerQuestionRepo = answerQuestionRepository;
     }
 
     public List<AnswerQuestion> findAll() {
@@ -35,7 +35,7 @@ public class AnswerQuestionService {
 
     }
 
-    public boolean isExists(Long id){
+    public boolean isExists(Long id) {
         return answerQuestionRepo.existsById(id);
     }
 }
