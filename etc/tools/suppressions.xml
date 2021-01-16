@@ -6,20 +6,11 @@
 
 <suppressions>
 
-    <suppress checks="NewlineAtEndOfFile"
-              files=".*Config.java"/>
-
     <suppress checks="HideUtilityClassConstructor"
               files=".OnlineTestingApplication.java"/>
 
     <suppress checks="MagicNumber"
               files=".persistent."/>
-
-    <suppress checks="HiddenField"
-              files=".persistent."/>
-
-    <suppress checks="HiddenField"
-              files=".entity."/>
 
 </suppressions>
 

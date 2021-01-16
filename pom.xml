@@ -100,7 +100,6 @@
                 <configuration>
                     <configLocation>/etc/tools/checkstyle.xml</configLocation>
                     <consoleOutput>true</consoleOutput>
-                    <failOnViolation>false</failOnViolation> <!--TODO: remove after fix/ignore issues-->
                 </configuration>
                 <executions>
                     <execution>
@@ -124,7 +123,6 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <failOnError>false</failOnError> <!--TODO: remove after fix/ignore issues-->
                     <effort>Max</effort>
                     <threshold>Low</threshold>
                     <xmlOutput>true</xmlOutput>
