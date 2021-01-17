@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PossibleAnswerRepo extends JpaRepository<PossibleAnswer,Long> {
+public interface PossibleAnswerRepo extends JpaRepository<PossibleAnswer, Long> {
     List<PossibleAnswer> findAllPossibleAnswerByQuestionsId(Long id);
 }

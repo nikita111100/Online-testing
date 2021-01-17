@@ -12,8 +12,8 @@ public class TestService {
 
     private final TestRepo testRepo;
 
-    public TestService(TestRepo testRepo) {
-        this.testRepo = testRepo;
+    public TestService(TestRepo testRepository) {
+        this.testRepo = testRepository;
     }
 
     public Test findById(Long id) {
@@ -24,7 +24,7 @@ public class TestService {
         return testRepo.findAll();
     }
 
-    public boolean isExists(Long id){
+    public boolean isExists(Long id) {
         return testRepo.existsById(id);
     }
 
@@ -34,7 +34,7 @@ public class TestService {
     }
 
     @Transactional
-    public Test saveTest(Test test){
+    public Test saveTest(Test test) {
         return testRepo.save(test);
     }
 }

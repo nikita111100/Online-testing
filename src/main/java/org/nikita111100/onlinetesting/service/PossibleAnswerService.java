@@ -12,8 +12,8 @@ public class PossibleAnswerService {
 
     private final PossibleAnswerRepo pAnswerRepo;
 
-    public PossibleAnswerService(PossibleAnswerRepo pAnswerRepo) {
-        this.pAnswerRepo = pAnswerRepo;
+    public PossibleAnswerService(PossibleAnswerRepo pAnswerRepository) {
+        this.pAnswerRepo = pAnswerRepository;
     }
 
     public List<PossibleAnswer> findAll() {
@@ -23,10 +23,11 @@ public class PossibleAnswerService {
     public PossibleAnswer findById(Long id) {
         return pAnswerRepo.getOne(id);
     }
-    public List<PossibleAnswer> findAllPossibleAnswersByQuestionId (Long id){
+
+    public List<PossibleAnswer> findAllPossibleAnswersByQuestionId(Long id) {
         return pAnswerRepo.findAllPossibleAnswerByQuestionsId(id);
     }
-    public boolean isExists(Long id){
+    public boolean isExists(Long id) {
         return pAnswerRepo.existsById(id);
     }
 
@@ -36,7 +37,7 @@ public class PossibleAnswerService {
     }
 
     @Transactional
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         pAnswerRepo.deleteById(id);
     }
 

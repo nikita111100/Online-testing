@@ -3,15 +3,16 @@ package org.nikita111100.onlinetesting.controller.entity;
 import org.nikita111100.onlinetesting.model.persistent.Role;
 import org.nikita111100.onlinetesting.model.persistent.User;
 import org.nikita111100.onlinetesting.service.UserService;
-import org.springframework.boot.context.properties.bind.BindResult;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.net.BindException;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class UserController {
     }
 
     @GetMapping
-    public String AllUsers(Model model) {
+    public String allUsers(Model model) {
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
         return "users/list";
@@ -39,11 +40,12 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String createUser(@RequestParam(value = "rolesChecked", required = false) String roles, @Valid User user, BindingResult bindingResult, Model model) {
+    public String createUser(@RequestParam(value = "rolesChecked", required = false) String roles,
+                             @Valid User user, BindingResult bindingResult,
+                             Model model) {
         if (bindingResult.hasErrors()) {
             return "/users/create";
         }
-
         User userFromDb = userService.findByName(user.getName());
         if (userFromDb != null) {
             model.addAttribute("message", "Пользователь с таким именем уже зарегистрирован");
