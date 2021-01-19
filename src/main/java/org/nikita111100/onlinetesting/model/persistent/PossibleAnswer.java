@@ -12,10 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -37,6 +38,6 @@ public class PossibleAnswer {
     @JoinColumn(name = "questions_id")
     private Question questions;
 
-    @OneToOne(mappedBy = "possibleAnswer", cascade = CascadeType.REMOVE)
-    private AnswerQuestion answerQuestion;
+    @OneToMany(mappedBy = "possibleAnswer", cascade = CascadeType.REMOVE)
+    private List<AnswerQuestion> answerQuestion;
 }

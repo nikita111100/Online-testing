@@ -19,10 +19,9 @@
                         <p class="card-text"th:text = "${test.theme}"></p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-<!--                                <form th:action = "@{/{id}/startTest(id=${test.id})}" method="get">-->
-<!--                                    <input type="submit" class="btn btn-sm btn-outline-secondary" value="Пройти тест"/>-->
-<!--                                </form>-->
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Пройти тест</button>
+                                <form th:action = "@{/test/{id}/startTest(id=${test.id})}" method="get">
+                                    <input type="submit" class="btn btn-sm btn-outline-secondary" value="Пройти тест"/>
+                                </form>
                                 <input type="submit" class="btn btn-sm btn-outline-secondary" value="Edit"/>
                             </div>
                             <small class="text-muted">9 mins</small>

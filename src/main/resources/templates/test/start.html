@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Это главная страница</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<strong style="margin-left: 30px" class="card-text" th:text="${test.name}"></strong>
+<p style="margin-left: 30px" class="card-text" th:text="${test.theme}"></p>
+<form th:action="@{startTest}" th:object="${answersToTest}" method="post">
+    <p>[[${message} ? ${message} : '']]</p>
+    <div style="margin-left: 40px" th:each="question, iterationStat : ${test.questions}">
+        <strong th:text="${question.text}"></strong>
+        <div style="margin-left: 40px" th:each="possibleAnswer, iStat : ${question.possibleAnswers}">
+            <input type="checkbox" th:field="*{checkedItems['__${question.id}__']}" th:value="${possibleAnswer.id}"/>
+            <p th:text="${possibleAnswer.text}"></p>
+        </div>
+    </div>
+    <input type="submit" value="Ответить">
+</form>
+<header th:insert="blocks/footer :: footer"></header>
+</body>
+</html>

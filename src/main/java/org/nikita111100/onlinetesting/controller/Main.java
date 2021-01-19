@@ -15,14 +15,15 @@ public class Main {
 
     private final TestService testService;
 
-    public Main(TestService testService) {
-        this.testService = testService;
+    public Main(TestService testServices) {
+        this.testService = testServices;
     }
 
     @GetMapping("/")
-    public String main(@AuthenticationPrincipal User user, Model model) {
+    public String allTest(@AuthenticationPrincipal User user, Model model) {
         List<Test> tests = testService.findAll();
         model.addAttribute("tests", tests);
         return "main";
     }
+
 }
