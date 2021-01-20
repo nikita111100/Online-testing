@@ -17,11 +17,11 @@
     <input type="text" th:field="*{password}" id="password" placeholder="password">
     <div style="Color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
     <br/>
-    <label> ADMIN </label>
-    <input type="checkbox" name="rolesChecked"/>
-    <br/>
+        <div th:each="role : ${roles}">
+            <input th:id="${role}" type="checkbox" th:name="roles[]" th:value="${role}" th:checked="${#lists.contains(user.roles, role)}" />
+            <label th:text="${role}" /></label>
+        </div>
     <input type="submit" value="Update user">
 </form>
-
 </body>
 </html>

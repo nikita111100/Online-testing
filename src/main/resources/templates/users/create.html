@@ -17,9 +17,6 @@
     <input type="text" th:field="*{password}" id="password" placeholder="password">
     <div style="Color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
     <br>
-    <label> ADMIN </label>
-    <input type="checkbox" name="rolesChecked"/>
-    <br>
     <input type="submit" value="Create user">
 </form>
 </body>

@@ -2,6 +2,7 @@ package org.nikita111100.onlinetesting.controller.entity;
 
 import org.nikita111100.onlinetesting.model.persistent.Test;
 import org.nikita111100.onlinetesting.service.TestService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Repository
 @RequestMapping("/tests")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class TestController {
 
     private final TestService testService;
