@@ -8,7 +8,9 @@
         <a class="p-2 text-dark" href="#">Поддержка</a>
         <a class="p-2 text-dark" href="#">Личный кабинет</a>
     </nav>
-    <a sec:authentication="name" > user </a>
+    <div sec:authorize="isAuthenticated()">
+        <p sec:authentication="name" > </p>
+    </div>
     <form th:action="@{/logout}" method="post">
         <input type="submit" class="btn btn-outline-primary" value="Sign Out"/>
     </form>
