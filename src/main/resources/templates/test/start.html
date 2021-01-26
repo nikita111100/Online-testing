@@ -11,10 +11,10 @@
 <p style="margin-left: 30px" class="card-text" th:text="${test.theme}"></p>
 <form th:action="@{startTest}" th:object="${answersToTest}" method="post">
     <p>[[${message} ? ${message} : '']]</p>
-    <div style="margin-left: 40px" th:each="question, iterationStat : ${test.questions}">
+    <div style="margin-left: 40px" th:each="question : ${test.questions}">
         <strong th:text="${question.text}"></strong>
-        <div style="margin-left: 40px" th:each="possibleAnswer, iStat : ${question.possibleAnswers}">
-            <input type="checkbox" th:field="*{checkedItems['__${question.id}__']}" th:value="${possibleAnswer.id}"/>
+        <div style="margin-left: 40px" th:each="possibleAnswer : ${question.possibleAnswers}">
+            <input type="checkbox" th:field ="*{checkedItems}" th:value="${question.id} +r+ ${possibleAnswer.id}"/>
             <p th:text="${possibleAnswer.text}"></p>
         </div>
     </div>
