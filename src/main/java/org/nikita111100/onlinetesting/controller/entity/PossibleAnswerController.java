@@ -32,7 +32,7 @@ public class PossibleAnswerController {
     }
 
     @GetMapping
-    public String findAllPossibleAnswersByQuestion(@PathVariable("questionId") Long questionId, Model model) { ;
+    public String findAllPossibleAnswersByQuestion(@PathVariable("questionId") Long questionId, Model model) {
         List<PossibleAnswer> possibleAnswers = possibleAnswerService.findAllPossibleAnswersByQuestionId(questionId);
         model.addAttribute("test",questionService.findById(questionId).getTest());
         model.addAttribute("possibleAnswers", possibleAnswers);
