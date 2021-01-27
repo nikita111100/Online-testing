@@ -2,6 +2,7 @@ package org.nikita111100.onlinetesting.controller.entity;
 
 import org.nikita111100.onlinetesting.model.persistent.PossibleAnswer;
 import org.nikita111100.onlinetesting.model.persistent.Question;
+import org.nikita111100.onlinetesting.model.persistent.Test;
 import org.nikita111100.onlinetesting.service.PossibleAnswerService;
 import org.nikita111100.onlinetesting.service.QuestionService;
 import org.nikita111100.onlinetesting.service.TestService;
@@ -31,8 +32,9 @@ public class PossibleAnswerController {
     }
 
     @GetMapping
-    public String findAllPossibleAnswersByQuestion(@PathVariable("questionId") Long questionId, Model model) {
+    public String findAllPossibleAnswersByQuestion(@PathVariable("questionId") Long questionId, Model model) { ;
         List<PossibleAnswer> possibleAnswers = possibleAnswerService.findAllPossibleAnswersByQuestionId(questionId);
+        model.addAttribute("test",questionService.findById(questionId).getTest());
         model.addAttribute("possibleAnswers", possibleAnswers);
         return "possibleAnswers/list";
     }

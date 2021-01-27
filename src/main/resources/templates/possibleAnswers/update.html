@@ -7,19 +7,19 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
-<form action="#" th:action="@{update}" th:object="${possibleAnswer}" method="post">
+<form style="margin-left: 40px; margin-right: 60%" action="#" th:action="@{update}" th:object="${possibleAnswer}" method="post">
     <input type hidden="text" th:field="*{id}" id="id" placeholder="id">
     <br>
     <label>correct answer</label>
     <input type="checkbox" name="correctChecked"/>
     <br/>
     <label for="text" >text</label>
-    <input type="text" th:field="*{text}" id="text" placeholder="text">
+    <input type="text" class="form-control" th:field="*{text}" id="text" placeholder="text">
     <div style="Color:red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
     <br/>
-    <input type hidden="text" th:field="*{questions.id}" value="${questions.id}" id="questions">
+    <input type hidden="text" class="form-control" th:field="*{questions.id}" value="${questions.id}" id="questions">
     <br/>
-    <input type="submit" value="Update question">
+    <input type="submit" class="btn btn-sm btn-outline-secondary" value="Update question">
 </form>
 
 </body>

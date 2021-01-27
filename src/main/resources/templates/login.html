@@ -6,16 +6,24 @@
 </head>
 <body>
 <header th:insert ="blocks/header :: header"></header>
-<div th:if="${param.error}">
+<div class="col-form-label text-danger" style="margin-left: 40px;" th:if="${param.error}">
     Invalid username and password.
 </div>
-<div th:if="${param.logout}">
+<div class="col-form-label text-danger" style="margin-left: 40px;" th:if="${param.logout}">
     You have been logged out.
 </div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
+<form style="margin-left: 40px; margin-top: 40px;" th:action="@{/login}" method="post">
+    <div class="form-group" style="margin-right: 60%;">
+        <label for="exampleInputEmail1">Login</label>
+        <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter login">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your login with anyone else.</small>
+    </div>
+    <div class="form-group" style="margin-right: 60%;">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <button type="submit"   class="btn btn-primary" >Sign In</button>
 </form>
+
 </body>
 </html>

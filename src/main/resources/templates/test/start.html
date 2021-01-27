@@ -7,18 +7,21 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
-<strong style="margin-left: 30px" class="card-text" th:text="${test.name}"></strong>
-<p style="margin-left: 30px" class="card-text" th:text="${test.theme}"></p>
+<strong style="margin-left: 30px" class="card-text"  th:text="${test.name}"></strong>
+<p style="margin-left: 30px" class="card-text"  th:text="${test.theme}"></p>
 <form th:action="@{startTest}" th:object="${answersToTest}" method="post">
-    <p>[[${message} ? ${message} : '']]</p>
+    <div style="margin:20px; background-color: #f2e785;  border-radius: 5px;">
+    <p   style="margin-left: 40px;" th:text="${message}" ></p>
+    </div>
     <div style="margin-left: 40px" th:each="question : ${test.questions}">
         <strong th:text="${question.text}"></strong>
-        <div style="margin-left: 40px" th:each="possibleAnswer : ${question.possibleAnswers}">
-            <input type="checkbox" th:field ="*{checkedItems}" th:value="${question.id} +r+ ${possibleAnswer.id}"/>
-            <p th:text="${possibleAnswer.text}"></p>
+        <div style="margin-left: 40px; margin-top: 10px;" th:each="possibleAnswer : ${question.possibleAnswers}">
+            <input type="checkbox" id="b" th:field="*{checkedItems}"
+                   th:value="${question.id} +r+ ${possibleAnswer.id}"/>
+            <label for="b" th:text="${possibleAnswer.text}"> </label>
         </div>
     </div>
-    <input type="submit" value="Ответить">
+    <input style="margin-left: 40px; margin-top: 20px;" class="btn btn-sm btn-outline-secondary" type="submit" value="Ответить">
 </form>
 <header th:insert="blocks/footer :: footer"></header>
 </body>

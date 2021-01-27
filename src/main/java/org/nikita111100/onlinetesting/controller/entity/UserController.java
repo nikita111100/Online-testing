@@ -97,7 +97,7 @@ public class UserController {
             return "redirect:/users";
         }
         User user2 = userService.findByName(name);
-        if (user.getId() == user2.getId()) {
+        if (user.getId().equals(user2.getId())) {
             userService.saveUser(user);
             return "redirect:/users";
         } else if (userService.findByName(name) != null) {

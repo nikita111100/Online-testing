@@ -7,17 +7,17 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
-<p>[[${message} ? ${message} : '']]</p>
-<form action="#" th:action="@{update}" th:object="${question}" method="post">
+<p th:text = ${message}></p>
+<form style="margin-left: 40px; margin-right: 60%" action="#" th:action="@{update}" th:object="${question}" method="post">
     <input type hidden="text" th:field="*{id}" id="id" placeholder="id">
     <br>
     <label for="text" >text</label>
-    <input type="text" th:field="*{text}" id="text" placeholder="text">
-    <div style="Color:red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
+    <input type="text"  class="form-control" th:field="*{text}" id="text" placeholder="text">
+    <div class="text-danger" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
     <br/>
-    <input type hidden="text" th:field="*{test.id}" value="${test.id}" id="test">
+    <input type hidden="text"  class="form-control" th:field="*{test.id}" value="${test.id}" id="test">
     <br>
-    <input type="submit" value="Update question">
+    <input type="submit" class="btn btn-sm btn-outline-secondary" value="Update question">
 </form>
 
 </body>
