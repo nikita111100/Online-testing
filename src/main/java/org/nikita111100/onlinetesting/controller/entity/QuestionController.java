@@ -4,6 +4,7 @@ import org.nikita111100.onlinetesting.model.persistent.Question;
 import org.nikita111100.onlinetesting.model.persistent.Test;
 import org.nikita111100.onlinetesting.service.QuestionService;
 import org.nikita111100.onlinetesting.service.TestService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/{testId}/questions")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class QuestionController {
     private final QuestionService questionService;
     private final TestService testService;
