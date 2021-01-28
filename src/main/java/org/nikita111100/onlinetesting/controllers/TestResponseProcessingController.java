@@ -2,13 +2,18 @@ package org.nikita111100.onlinetesting.controllers;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import org.nikita111100.onlinetesting.model.persistent.*;
+import org.nikita111100.onlinetesting.model.persistent.AnswerQuestion;
+import org.nikita111100.onlinetesting.model.persistent.AnswerTest;
+import org.nikita111100.onlinetesting.model.persistent.AnswersToTest;
+import org.nikita111100.onlinetesting.model.persistent.PossibleAnswer;
+import org.nikita111100.onlinetesting.model.persistent.Question;
+import org.nikita111100.onlinetesting.model.persistent.Test;
+import org.nikita111100.onlinetesting.model.persistent.User;
 import org.nikita111100.onlinetesting.services.AnswerQuestionService;
 import org.nikita111100.onlinetesting.services.AnswerTestService;
 import org.nikita111100.onlinetesting.services.PossibleAnswerService;
 import org.nikita111100.onlinetesting.services.QuestionService;
 import org.nikita111100.onlinetesting.services.TestService;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,7 +83,7 @@ public class TestResponseProcessingController {
         Multimap<Long, Long> newCheckedItems = parseMapToMultimap(checkedItems);
 
         // проверка на все ли вопросы ответил пользователь
-        List<Question> questions = questionService.findAllQuestionsByTestId(test.getId());
+        List<Question> questions = questionService.findAllByTestId(test.getId());
         for (Question question : questions) {
             Long key = question.getId();
             if (!newCheckedItems.containsKey(key)) {

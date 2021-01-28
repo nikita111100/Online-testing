@@ -31,20 +31,20 @@ public class QuestionController {
     }
 
     @GetMapping
-    public String findAllQuestionByTest(@PathVariable("testId") Long testId, Model model) {
+    public String findAllByTest(@PathVariable("testId") Long testId, Model model) {
         Optional<Test> test = testService.findById(testId);
         if (test.isPresent()) {
-            List<Question> questions = questionService.findAllQuestionsByTestId(testId);
+            List<Question> questions = questionService.findAllByTestId(test.get().getId());
             model.addAttribute("questions", questions);
             return "questions/list";
-
         } else {
             return "redirect:/tests";
         }
     }
 
     @GetMapping("/create")
-    public String createQuestionForm(Question question) {
+    public String createQuestionForm(Model model) {
+        model.addAttribute("question", new Question());
         return "questions/create";
     }
 
@@ -54,32 +54,25 @@ public class QuestionController {
         if (bindingResult.hasErrors()) {
             return "questions/create";
         }
-        Optional<Test> test = testService.findById(testId);
-        if (test.isPresent()) {
-            question.setTest(test.get());
-            questionService.saveQuestion(question);
-            return "redirect:/{testId}/questions";
-        }
-        return "redirect:/tests";
-
+        questionService.createQuestionsForm(testId, question);
+        return "redirect:/{testId}/questions";
     }
 
     @GetMapping("/{questionId}/delete")
     public String deleteQuestion(@PathVariable("questionId") Long id) {
-        if (questionService.isExists(id)) {
-            questionService.deleteById(id);
-        }
+        questionService.deleteById(id);
         return "redirect:/{testId}/questions";
     }
 
     @GetMapping("/{questionId}/update")
-    public String updateQuestionForm(@PathVariable("questionId") Long id, Model model) {
-        if (questionService.isExists(id)) {
-            Optional<Question> question = questionService.findById(id);
+    public String updateQuestionForm(@PathVariable("questionId") Long questionId, Model model) {
+        Optional<Question> question = questionService.findById(questionId);
+        if (question.isPresent()) {
             model.addAttribute("question", question.get());
             return "questions/update";
+        } else {
+            return "redirect:/{testId}/questions";
         }
-        return "redirect:/{testId}/questions";
     }
 
     @PostMapping("/{questionId}/update")
@@ -87,11 +80,7 @@ public class QuestionController {
         if (bindingResult.hasErrors()) {
             return "questions/update";
         }
-        Optional<Test> test = testService.findById(question.getId());
-        if (test.isPresent()) {
-            questionService.saveQuestion(question);
-            return "redirect:/{testId}/questions";
-        }
-        return "redirect:/tests";
+        questionService.updateQuestionsForm(question);
+        return "redirect:/{testId}/questions";
     }
 }

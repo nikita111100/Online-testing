@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"  >
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div style="margin-left:40px;">
+    <strong th:text="${errCode}">  </strong>
+    <p th:text="${errMsg}" >  </p>
+    <a href="/tests"> Вернуться к списку тестов </a>
+</div>
+</body>
+</html>
