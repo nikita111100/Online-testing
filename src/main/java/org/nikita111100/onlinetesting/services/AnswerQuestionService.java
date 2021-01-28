@@ -1,7 +1,7 @@
-package org.nikita111100.onlinetesting.service;
+package org.nikita111100.onlinetesting.services;
 
 import org.nikita111100.onlinetesting.model.persistent.AnswerQuestion;
-import org.nikita111100.onlinetesting.repository.AnswerQuestionRepo;
+import org.nikita111100.onlinetesting.repositories.AnswerQuestionRepo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

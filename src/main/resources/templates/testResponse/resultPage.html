@@ -6,10 +6,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 <header th:insert="blocks/header :: header"></header>
+<div style="margin-left:40px;">
 <strong>Поздравляем, вы прошли тест</strong>
 <p>Ваш результат:
 <p th:text="${answerTest.result}"></p></p>
 <a href="/">Вернуться к тестам</a>
+</div>
 <header th:insert="blocks/footer :: footer"></header>
 </body>
 </html>

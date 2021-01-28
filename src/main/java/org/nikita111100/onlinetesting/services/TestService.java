@@ -1,11 +1,12 @@
-package org.nikita111100.onlinetesting.service;
+package org.nikita111100.onlinetesting.services;
 
 import org.nikita111100.onlinetesting.model.persistent.Test;
-import org.nikita111100.onlinetesting.repository.TestRepo;
+import org.nikita111100.onlinetesting.repositories.TestRepo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TestService {
@@ -16,8 +17,8 @@ public class TestService {
         this.testRepo = testRepository;
     }
 
-    public Test findById(Long id) {
-        return testRepo.getOne(id);
+    public Optional<Test> findById(Long id) {
+        return testRepo.findById(id);
     }
 
     public List<Test> findAll() {

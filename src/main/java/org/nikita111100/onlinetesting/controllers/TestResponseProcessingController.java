@@ -1,18 +1,15 @@
-package org.nikita111100.onlinetesting.controller;
+package org.nikita111100.onlinetesting.controllers;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import org.nikita111100.onlinetesting.model.persistent.AnswerQuestion;
-import org.nikita111100.onlinetesting.model.persistent.AnswerTest;
-import org.nikita111100.onlinetesting.model.persistent.AnswersToTest;
-import org.nikita111100.onlinetesting.model.persistent.PossibleAnswer;
-import org.nikita111100.onlinetesting.model.persistent.Question;
-import org.nikita111100.onlinetesting.model.persistent.Test;
-import org.nikita111100.onlinetesting.service.AnswerQuestionService;
-import org.nikita111100.onlinetesting.service.AnswerTestService;
-import org.nikita111100.onlinetesting.service.PossibleAnswerService;
-import org.nikita111100.onlinetesting.service.QuestionService;
-import org.nikita111100.onlinetesting.service.TestService;
+import org.nikita111100.onlinetesting.model.persistent.*;
+import org.nikita111100.onlinetesting.services.AnswerQuestionService;
+import org.nikita111100.onlinetesting.services.AnswerTestService;
+import org.nikita111100.onlinetesting.services.PossibleAnswerService;
+import org.nikita111100.onlinetesting.services.QuestionService;
+import org.nikita111100.onlinetesting.services.TestService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,13 +23,14 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/test")
-public class Answer {
+public class TestResponseProcessingController {
 
     private final TestService testService;
     private final QuestionService questionService;
@@ -40,10 +38,10 @@ public class Answer {
     private final AnswerTestService answerTestService;
     private final AnswerQuestionService answerQuestionService;
 
-    public Answer(TestService testService, QuestionService questionService,
-                  PossibleAnswerService possibleAnswerService,
-                  AnswerTestService answerTestService,
-                  AnswerQuestionService answerQuestionService) {
+    public TestResponseProcessingController(TestService testService, QuestionService questionService,
+                                            PossibleAnswerService possibleAnswerService,
+                                            AnswerTestService answerTestService,
+                                            AnswerQuestionService answerQuestionService) {
         this.testService = testService;
         this.questionService = questionService;
         this.possibleAnswerService = possibleAnswerService;
@@ -54,14 +52,15 @@ public class Answer {
 
     @GetMapping("/{id}/startTest")
     public String answerTest(@PathVariable("id") Long testId, Model model) {
-        if (testService.isExists(testId)) {
-            Test test = testService.findById(testId);
-            model.addAttribute("test", test);
+        Optional<Test> test = testService.findById(testId);
+        if (test.isPresent()) {
+            model.addAttribute("test", test.get());
             AnswersToTest answersToTest = new AnswersToTest();
             model.addAttribute("answersToTest", answersToTest);
-            return "test/start";
+            return "testResponse/start";
+        } else {
+            return "redirect:/";
         }
-        return "redirect:/";
     }
 
     @PostMapping("/{id}/startTest")
@@ -83,14 +82,15 @@ public class Answer {
         for (Question question : questions) {
             Long key = question.getId();
             if (!newCheckedItems.containsKey(key)) {
-                if (testService.isExists(test.getId())) {
-                    Test testModel = testService.findById(test.getId());
-                    model.addAttribute("test", testModel);
+                Optional<Test> testModel = testService.findById(test.getId());
+                if (testModel.isPresent()) {
+                    model.addAttribute("test", testModel.get());
                     model.addAttribute("message", "Ответье на все вопросы данного теста");
-                    return "test/start";
+                    return "testResponse/start";
+                } else {
+                    model.addAttribute("warringMessage", "При попытке пройти тест что-то пошло не так, тест не найден");
+                    return "redirect:/";
                 }
-                model.addAttribute("warringMessage", "При попытке пройти тест что-то пошло не так, тест не найден");
-                return "redirect:/";
             }
         }
 
@@ -99,9 +99,11 @@ public class Answer {
 
         double result = testResult(Double.valueOf(questions.size()), wrongAnswer);
         answerTest.setResult((int) result);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        answerTest.setUser(user);
         answerTestService.save(answerTest);
         model.addAttribute("answerTest", answerTest);
-        return "test/resultPage";
+        return "testResponse/resultPage";
     }
 
 
@@ -112,11 +114,11 @@ public class Answer {
         while (keyIterator.hasNext()) {
             Long key = (Long) keyIterator.next();
             List<Long> values = (List<Long>) newCheckedItems.get(key);
-            List<PossibleAnswer> CountOfPossibleAnswer = possibleAnswerService.findAllPossibleAnswersByQuestionId(key);
-            List<PossibleAnswer> CountOfCorrectPossibleAnswers = new ArrayList<>();
-            for (PossibleAnswer possibleAnswer : CountOfPossibleAnswer) {
+            List<PossibleAnswer> countOfPossibleAnswer = possibleAnswerService.findAllByQuestionId(key);
+            List<PossibleAnswer> countOfCorrectPossibleAnswers = new ArrayList<>();
+            for (PossibleAnswer possibleAnswer : countOfPossibleAnswer) {
                 if (possibleAnswer.getCorrectAnswer() == 1) {
-                    CountOfCorrectPossibleAnswers.add(possibleAnswer);
+                    countOfCorrectPossibleAnswers.add(possibleAnswer);
                 }
             }
 
@@ -124,16 +126,15 @@ public class Answer {
 
             for (Long value : values) {
                 AnswerQuestion answerQuestion = new AnswerQuestion();
-                PossibleAnswer possibleAnswer = possibleAnswerService.findById(value);
-                allUserAnswersToOneQuestion.add(possibleAnswer);
-                answerQuestion.setPossibleAnswer(possibleAnswer);
+                Optional<PossibleAnswer> possibleAnswer = possibleAnswerService.findById(value);
+                allUserAnswersToOneQuestion.add(possibleAnswer.get());
+                answerQuestion.setPossibleAnswer(possibleAnswer.get());
                 answerQuestion.setAnswerTest(answerTest);
                 answerQuestionService.save(answerQuestion);
             }
-            System.out.println(CountOfCorrectPossibleAnswers.size() +" " +  allUserAnswersToOneQuestion.size());
-            if (CountOfCorrectPossibleAnswers.size() == allUserAnswersToOneQuestion.size()) {
-                for (int i = 0; i < CountOfCorrectPossibleAnswers.size(); i++) {
-                    if (CountOfCorrectPossibleAnswers.get(i).getId() != (allUserAnswersToOneQuestion.get(i).getId())) {
+            if (countOfCorrectPossibleAnswers.size() == allUserAnswersToOneQuestion.size()) {
+                for (int i = 0; i < countOfCorrectPossibleAnswers.size(); i++) {
+                    if (countOfCorrectPossibleAnswers.get(i).getId() != (allUserAnswersToOneQuestion.get(i).getId())) {
                         wrongAnswer++;
                         break;
                     }

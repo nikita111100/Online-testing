@@ -1,8 +1,8 @@
-package org.nikita111100.onlinetesting.controller.entity;
+package org.nikita111100.onlinetesting.controllers;
 
 import org.nikita111100.onlinetesting.model.persistent.Role;
 import org.nikita111100.onlinetesting.model.persistent.User;
-import org.nikita111100.onlinetesting.service.UserService;
+import org.nikita111100.onlinetesting.services.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -102,7 +102,7 @@ public class UserController {
         if (user.getId().equals(anotherUser.getId())) {
             userService.saveUser(user);
             return "redirect:/users";
-        } else{
+        } else {
             model.addAttribute("message", "Это имя занято, введите другое");
             model.addAttribute("roles", Role.values());
             return "users/update";

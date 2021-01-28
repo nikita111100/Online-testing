@@ -1,7 +1,7 @@
-package org.nikita111100.onlinetesting.controller.entity;
+package org.nikita111100.onlinetesting.controllers;
 
 import org.nikita111100.onlinetesting.model.persistent.Test;
-import org.nikita111100.onlinetesting.service.TestService;
+import org.nikita111100.onlinetesting.services.TestService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequestMapping("/tests")
@@ -56,12 +57,13 @@ public class TestController {
 
     @GetMapping("/{id}/update")
     public String updateUserForm(@PathVariable("id") Long id, Model model) {
-        if (testService.isExists(id)) {
-            Test test = testService.findById(id);
+        Optional<Test> test = testService.findById(id);
+        if (test.isPresent()) {
             model.addAttribute("test", test);
             return "tests/update";
+        } else {
+            return "redirect:/tests";
         }
-        return "redirect:/tests";
     }
 
     @PostMapping("/{id}/update")
