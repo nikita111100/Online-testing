@@ -11,23 +11,26 @@
     <h2 th:case = "null">No user found!</h2>
     <div th:case="*">
         <h2>User</h2>
-        <table>
+        <table style="margin-left: 40px">
             <thead>
             <tr>
-                <th>id</th>
+                <th>count</th>
                 <th>active</th>
                 <th>name</th>
                 <th>password</th>
             </tr>
             </thead>
             <tr>
-            <tr th:each ="user : ${users}">
-                <td th:text = "${user.id}"></td>
+            <tr th:each ="user, iterStat : ${users}">
+                <td th:text = ${iterStat.count}></td>
                 <td th:text = "${user.active}"></td>
                 <td th:text = "${user.name}"></td>
                 <td th:text = "${user.password}"></td>
             <td> <a  th:href = "@{users/{id}/update(id=${user.id})}">Edit</a></td>
             <td> <a th:href = "@{users/{id}/delete(id=${user.id})}">Delete</a></td>
+            <div th:each="role : ${user.roles}">
+                <td th:text = "${role}"></td>
+            </div>
             </tr>
             </tbody>
         </table>
