@@ -1,11 +1,12 @@
-package org.nikita111100.onlinetesting.service;
+package org.nikita111100.onlinetesting.services;
 
 import org.nikita111100.onlinetesting.model.persistent.Question;
-import org.nikita111100.onlinetesting.repository.QuestionRepo;
+import org.nikita111100.onlinetesting.repositories.QuestionRepo;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuestionService {
@@ -16,8 +17,8 @@ public class QuestionService {
         this.questionRepo = questionRepository;
     }
 
-    public  Question findById(Long id) {
-        return questionRepo.getOne(id);
+    public Optional<Question> findById(Long id) {
+        return questionRepo.findById(id);
     }
 
     public  boolean isExists(Long id) {

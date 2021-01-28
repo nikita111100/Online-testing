@@ -12,6 +12,9 @@
     <suppress checks="MagicNumber"
               files=".persistent."/>
 
+    <suppress checks="MagicNumber"
+              files=".controllers."/>
+
 </suppressions>
 
 

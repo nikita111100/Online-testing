@@ -1,7 +1,7 @@
-package org.nikita111100.onlinetesting.controller.entity;
+package org.nikita111100.onlinetesting.controllers;
 
 import org.nikita111100.onlinetesting.model.persistent.AnswerTest;
-import org.nikita111100.onlinetesting.service.AnswerTestService;
+import org.nikita111100.onlinetesting.services.AnswerTestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

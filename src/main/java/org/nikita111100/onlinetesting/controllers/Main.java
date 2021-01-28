@@ -1,8 +1,8 @@
-package org.nikita111100.onlinetesting.controller;
+package org.nikita111100.onlinetesting.controllers;
 
 import org.nikita111100.onlinetesting.model.persistent.Test;
 import org.nikita111100.onlinetesting.model.persistent.User;
-import org.nikita111100.onlinetesting.service.TestService;
+import org.nikita111100.onlinetesting.services.TestService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

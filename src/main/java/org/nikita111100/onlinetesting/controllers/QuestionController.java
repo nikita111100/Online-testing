@@ -1,9 +1,9 @@
-package org.nikita111100.onlinetesting.controller.entity;
+package org.nikita111100.onlinetesting.controllers;
 
 import org.nikita111100.onlinetesting.model.persistent.Question;
 import org.nikita111100.onlinetesting.model.persistent.Test;
-import org.nikita111100.onlinetesting.service.QuestionService;
-import org.nikita111100.onlinetesting.service.TestService;
+import org.nikita111100.onlinetesting.services.QuestionService;
+import org.nikita111100.onlinetesting.services.TestService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -30,10 +31,16 @@ public class QuestionController {
     }
 
     @GetMapping
-    public String findAllQuestionByTest(@PathVariable("testId") Long test, Model model) {
-        List<Question> questions = questionService.findAllQuestionsByTestId(test);
-        model.addAttribute("questions", questions);
-        return "questions/list";
+    public String findAllQuestionByTest(@PathVariable("testId") Long testId, Model model) {
+        Optional<Test> test = testService.findById(testId);
+        if (test.isPresent()) {
+            List<Question> questions = questionService.findAllQuestionsByTestId(testId);
+            model.addAttribute("questions", questions);
+            return "questions/list";
+
+        } else {
+            return "redirect:/tests";
+        }
     }
 
     @GetMapping("/create")
@@ -47,10 +54,13 @@ public class QuestionController {
         if (bindingResult.hasErrors()) {
             return "questions/create";
         }
-        Test test = testService.findById(testId);
-        question.setTest(test);
-        questionService.saveQuestion(question);
-        return "redirect:/{testId}/questions";
+        Optional<Test> test = testService.findById(testId);
+        if (test.isPresent()) {
+            question.setTest(test.get());
+            questionService.saveQuestion(question);
+            return "redirect:/{testId}/questions";
+        }
+        return "redirect:/tests";
 
     }
 
@@ -65,8 +75,8 @@ public class QuestionController {
     @GetMapping("/{questionId}/update")
     public String updateQuestionForm(@PathVariable("questionId") Long id, Model model) {
         if (questionService.isExists(id)) {
-            Question question = questionService.findById(id);
-            model.addAttribute("question", question);
+            Optional<Question> question = questionService.findById(id);
+            model.addAttribute("question", question.get());
             return "questions/update";
         }
         return "redirect:/{testId}/questions";
@@ -77,7 +87,11 @@ public class QuestionController {
         if (bindingResult.hasErrors()) {
             return "questions/update";
         }
-        questionService.saveQuestion(question);
-        return "redirect:/{testId}/questions";
+        Optional<Test> test = testService.findById(question.getId());
+        if (test.isPresent()) {
+            questionService.saveQuestion(question);
+            return "redirect:/{testId}/questions";
+        }
+        return "redirect:/tests";
     }
 }

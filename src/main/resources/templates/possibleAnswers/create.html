@@ -11,11 +11,9 @@
 <form style="margin-left: 40px; margin-right: 60%" action="#" th:action="@{create}" th:object="${possibleAnswer}" method="post">
     <label>correct answer</label>
     <input type="checkbox" name="correctChecked"/>
-    <br/>
-    <div class="text-danger" th:if="${#fields.hasErrors('correctAnswer')}" th:errors="*{correctAnswer}"></div>
     <br>
     <label for="text">text</label>
-    <input type="text" class="form-control" th:field="*{text}" id="text" placeholder="text">
+    <input type="text" class="form-control" th:field="*{text}" id="text" placeholder="text"/>
     <div class="text-danger" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
     <br>
     <input type="submit" class="btn btn-sm btn-outline-secondary" value="Create possible answer">

@@ -1,7 +1,7 @@
-package org.nikita111100.onlinetesting.service;
+package org.nikita111100.onlinetesting.services;
 
 import org.nikita111100.onlinetesting.model.persistent.User;
-import org.nikita111100.onlinetesting.repository.UserRepo;
+import org.nikita111100.onlinetesting.repositories.UserRepo;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

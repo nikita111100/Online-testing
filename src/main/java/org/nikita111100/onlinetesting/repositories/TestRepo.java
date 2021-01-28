@@ -1,4 +1,4 @@
-package org.nikita111100.onlinetesting.repository;
+package org.nikita111100.onlinetesting.repositories;
 
 import org.nikita111100.onlinetesting.model.persistent.Test;
 import org.springframework.data.jpa.repository.JpaRepository;

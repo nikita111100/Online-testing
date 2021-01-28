@@ -1,11 +1,10 @@
-package org.nikita111100.onlinetesting.controller.entity;
+package org.nikita111100.onlinetesting.controllers;
 
 import org.nikita111100.onlinetesting.model.persistent.PossibleAnswer;
 import org.nikita111100.onlinetesting.model.persistent.Question;
-import org.nikita111100.onlinetesting.model.persistent.Test;
-import org.nikita111100.onlinetesting.service.PossibleAnswerService;
-import org.nikita111100.onlinetesting.service.QuestionService;
-import org.nikita111100.onlinetesting.service.TestService;
+import org.nikita111100.onlinetesting.services.PossibleAnswerService;
+import org.nikita111100.onlinetesting.services.QuestionService;
+import org.nikita111100.onlinetesting.services.TestService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/{testId}/{questionId}/possibleAnswers")
@@ -35,10 +35,15 @@ public class PossibleAnswerController {
 
     @GetMapping
     public String findAllPossibleAnswersByQuestion(@PathVariable("questionId") Long questionId, Model model) {
-        List<PossibleAnswer> possibleAnswers = possibleAnswerService.findAllPossibleAnswersByQuestionId(questionId);
-        model.addAttribute("test",questionService.findById(questionId).getTest());
-        model.addAttribute("possibleAnswers", possibleAnswers);
-        return "possibleAnswers/list";
+        Optional<Question> question = questionService.findById(questionId);
+        if (question.isPresent()) {
+            List<PossibleAnswer> possibleAnswers = possibleAnswerService.findAllByQuestionId(questionId);
+            model.addAttribute("question", questionService.findById(questionId).get());
+            model.addAttribute("possibleAnswers", possibleAnswers);
+            return "possibleAnswers/list";
+        } else {
+            return "redirect:/{testId}/questions";
+        }
     }
 
     @GetMapping("/create")
@@ -58,10 +63,13 @@ public class PossibleAnswerController {
         } else {
             possibleAnswer.setCorrectAnswer(0);
         }
-        Question question = questionService.findById(questionId);
-        possibleAnswer.setQuestions(question);
-        possibleAnswerService.save(possibleAnswer);
-        return "redirect:/{testId}/{questionId}/possibleAnswers";
+        Optional<Question> question = questionService.findById(questionId);
+        if (question.isPresent()) {
+            possibleAnswer.setQuestions(question.get());
+            possibleAnswerService.save(possibleAnswer);
+            return "redirect:/{testId}/{questionId}/possibleAnswers";
+        }
+        return "redirect:/{testId}/questions";
     }
 
     @GetMapping("/{possibleAnswerId}/delete")
@@ -75,7 +83,7 @@ public class PossibleAnswerController {
     @GetMapping("/{possibleAnswerId}/update")
     public String updatePossibleAnswerForm(@PathVariable("possibleAnswerId") Long id, Model model) {
         if (possibleAnswerService.isExists(id)) {
-            PossibleAnswer possibleAnswer = possibleAnswerService.findById(id);
+            Optional<PossibleAnswer> possibleAnswer = possibleAnswerService.findById(id);
             model.addAttribute("possibleAnswer", possibleAnswer);
             return "possibleAnswers/update";
         }

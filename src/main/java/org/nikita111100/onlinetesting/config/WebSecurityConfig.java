@@ -1,6 +1,6 @@
 package org.nikita111100.onlinetesting.config;
 
-import org.nikita111100.onlinetesting.service.UserService;
+import org.nikita111100.onlinetesting.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
