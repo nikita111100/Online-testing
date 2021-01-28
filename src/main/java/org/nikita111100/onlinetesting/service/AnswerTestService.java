@@ -20,6 +20,15 @@ public class AnswerTestService {
         return answerTestRepo.findAll();
     }
 
+    public AnswerTest findAnswerTestById(Long id) {
+        return answerTestRepo.getOne(id);
+    }
+
+    @Transactional
+    public AnswerTest save(AnswerTest answerTest) {
+        return answerTestRepo.save(answerTest);
+    }
+
     @Transactional
     public void deleteBy(Long id) {
         answerTestRepo.deleteById(id);

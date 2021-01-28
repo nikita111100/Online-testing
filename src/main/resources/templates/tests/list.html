@@ -7,21 +7,21 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
-<div th:switch="${tests}">
+<div style="margin-left: 40px; margin-right: 10%" th:switch="${tests}">
     <h2 th:case = "null">No test found!</h2>
     <div th:case="*">
         <h2>Test</h2>
         <table>
             <thead>
             <tr>
-                <th>id</th>
+                <th>№</th>
                 <th>name</th>
                 <th>theme</th>
             </tr>
             </thead>
             <tr>
-            <tr th:each ="test : ${tests}">
-                <td th:text = "${test.id}"></td>
+            <tr th:each ="test,IterStat : ${tests}">
+                <td th:text = "${IterStat.count}"></td>
                 <td th:text = "${test.name}"></td>
                 <td th:text = "${test.theme}"></td>
             <td> <a th:href = "@{{testId}/questions(testId=${test.id})}">Вопросы к тесту</a></td>

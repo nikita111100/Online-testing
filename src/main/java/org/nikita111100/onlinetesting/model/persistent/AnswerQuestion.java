@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Data
@@ -23,7 +22,7 @@ public class AnswerQuestion {
     @JoinColumn(name = "answer_test_id")
     private AnswerTest answerTest;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "possible_answer_id")
     private PossibleAnswer possibleAnswer;
 

@@ -7,14 +7,14 @@
 </head>
 <body>
 <header th:insert="blocks/header::header"></header>
-<div th:switch="${users}">
+<div style="margin-left: 40px; margin-right: 10%"  th:switch="${users}">
     <h2 th:case = "null">No user found!</h2>
     <div th:case="*">
         <h2>User</h2>
         <table style="margin-left: 40px">
             <thead>
             <tr>
-                <th>count</th>
+                <th>№</th>
                 <th>active</th>
                 <th>name</th>
                 <th>password</th>
@@ -22,7 +22,7 @@
             </thead>
             <tr>
             <tr th:each ="user, iterStat : ${users}">
-                <td th:text = ${iterStat.count}></td>
+                <td th:text = "${iterStat.count}"></td>
                 <td th:text = "${user.active}"></td>
                 <td th:text = "${user.name}"></td>
                 <td th:text = "${user.password}"></td>
@@ -37,7 +37,7 @@
     </div>
     <p><a href ="users/create"> Create user </a> </p>
     <br>
-    <p><a href ="/"> вернуться на главную страницу</a> </p>
+    <p><a href ="/"> Back to main</a> </p>
 </div>
 </body>
 </html>

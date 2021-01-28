@@ -8,16 +8,16 @@
 <body>
 <header th:insert="blocks/header :: header"></header>
 <p>[[${message} ? ${message} : '']]</p>
-<form action="#" th:action="@{create}" th:object="${user}" method="post">
+<form style="margin-left: 40px; margin-right: 60%" action="#" th:action="@{create}" th:object="${user}" method="post">
     <label for="name">name</label>
-    <input type="text" th:field="*{name}" id="name" placeholder="name">
-    <div style="Color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <input type="text" class="form-control"  th:field="*{name}" id="name" placeholder="name">
+    <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
     <br>
     <label for="password">password</label>
-    <input type="text" th:field="*{password}" id="password" placeholder="password">
-    <div style="Color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+    <input type="text" class="form-control"  th:field="*{password}" id="password" placeholder="password">
+    <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
     <br>
-    <input type="submit" value="Create user">
+    <input type="submit" class="btn btn-sm btn-outline-secondary" value="Create user">
 </form>
 </body>
 </html>

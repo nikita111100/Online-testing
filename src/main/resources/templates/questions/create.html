@@ -7,12 +7,12 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
-<form action="#" th:action="@{create}" th:object="${question}" method="post">
+<form style="margin-left: 40px; margin-right: 60%" action="#" th:action="@{create}" th:object="${question}" method="post">
     <label for="text">text</label>
-    <input type="text" th:field="*{text}" id="text" placeholder="text">
-    <div style="Color:red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
+    <input type="text" class="form-control" th:field="*{text}" id="text" placeholder="text">
+    <div class="text-danger" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
     <br>
-    <input type="submit" value="Create questions">
+    <input type="submit"  class="btn btn-sm btn-outline-secondary" value="Create questions">
 </form>
 </body>
 </html>

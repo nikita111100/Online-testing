@@ -7,22 +7,22 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
-<div th:switch="${possibleAnswers}">
+<div style="margin-left: 40px; margin-right: 10%" th:switch="${possibleAnswers}">
     <h2 th:case = "null">No possibleAnswers found!</h2>
     <div th:case="*">
         <h2>Possible answers</h2>
         <table>
             <thead>
             <tr>
-                <th>id</th>
+                <th>№</th>
                 <th>correct answer</th>
                 <th>text</th>
                 <th>question.id</th>
             </tr>
             </thead>
             <tr>
-            <tr th:each ="possibleAnswer : ${possibleAnswers}">
-                <td th:text = "${possibleAnswer.id}"></td>
+            <tr th:each ="possibleAnswer, iterStat : ${possibleAnswers}">
+                <td th:text = "${iterStat.count}"></td>
                 <td th:text = "${possibleAnswer.correctAnswer}"></td>
                 <td th:text = "${possibleAnswer.text}"></td>
                 <td th:text = "${possibleAnswer.questions.id}"></td>
@@ -34,5 +34,5 @@
     </div>
     <p><a href ="possibleAnswers/create"> Create possible answer</a> </p>
     <br>
-    <p><a href="/tests"> Вернутся к cписку тестов</a> </p>
+    <p><a th:href="@{/{testId}/questions(testId=${test.id})}"> Вернутся к cписку вопросов</a> </p>
 </div>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Это главная страница</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<header th:insert="blocks/header :: header"></header>
+<strong>Поздравляем, вы прошли тест</strong>
+<p>Ваш результат:
+<p th:text="${answerTest.result}"></p></p>
+<a href="/">Вернуться к тестам</a>
+<header th:insert="blocks/footer :: footer"></header>
+</body>
+</html>
