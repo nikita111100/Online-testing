@@ -1,5 +1,7 @@
 package org.nikita111100.onlinetesting.services;
 
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
 import org.hibernate.StaleStateException;
 import org.nikita111100.onlinetesting.model.persistent.Question;
 import org.nikita111100.onlinetesting.model.persistent.Test;
@@ -14,6 +16,8 @@ import java.util.Optional;
 
 @Service
 public class QuestionService {
+
+    private static final Logger logger = LoggerFactory.getLogger(PossibleAnswerService.class);
 
     private final QuestionRepo questionRepo;
 
@@ -51,26 +55,33 @@ public class QuestionService {
 
     @Transactional
     public void deleteById(Long id) throws EmptyResultDataAccessException, StaleStateException {
-        Optional<Question> question = questionRepo.findById(id);
-        if (question.isPresent()) {
+        try {
             questionRepo.deleteById(id);
+        } catch (Exception e) {
+            logger.error("Не удалось удалить сущность");
+            throw e;
         }
     }
 
     @Transactional
-    public void createQuestionsForm(Long testId, Question question) {
-        Optional<Test> test = testService.findById(testId);
-        if (test.isPresent()) {
+    public void create(Long testId, Question question) {
+        try {
+            Optional<Test> test = testService.findById(testId);
             question.setTest(test.get());
             questionRepo.save(question);
+        } catch (Exception e) {
+            logger.error("Не удалось сохранить сущность");
+            throw e;
         }
     }
 
     @Transactional
-    public void updateQuestionsForm(Question question) throws EntityNotFoundException {
-        Optional<Question> questionFromDb = questionRepo.findById(question.getId());
-        if (questionFromDb.isPresent()) {
+    public void update(Question question) throws EntityNotFoundException {
+        try {
             questionRepo.save(question);
+        } catch (Exception e) {
+            logger.error("Сущность для редактирования не найдена");
+            throw e;
         }
     }
 }

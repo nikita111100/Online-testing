@@ -54,7 +54,7 @@ public class QuestionController {
         if (bindingResult.hasErrors()) {
             return "questions/create";
         }
-        questionService.createQuestionsForm(testId, question);
+        questionService.create(testId, question);
         return "redirect:/{testId}/questions";
     }
 
@@ -80,7 +80,7 @@ public class QuestionController {
         if (bindingResult.hasErrors()) {
             return "questions/update";
         }
-        questionService.updateQuestionsForm(question);
+        questionService.update(question);
         return "redirect:/{testId}/questions";
     }
 }

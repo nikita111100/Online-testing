@@ -57,7 +57,7 @@ public class PossibleAnswerController {
         if (bindingResult.hasErrors()) {
             return "possibleAnswers/create";
         }
-        possibleAnswerService.createPossibleAnswerForm(rolesChecked, possibleAnswer, questionId);
+        possibleAnswerService.create(rolesChecked, possibleAnswer, questionId);
 
         return "redirect:/{testId}/{questionId}/possibleAnswers";
     }
@@ -85,7 +85,7 @@ public class PossibleAnswerController {
         if (bindingResult.hasErrors()) {
             return "possibleAnswers/update";
         }
-        possibleAnswerService.updatePossibleAnswerForm(rolesChecked, possibleAnswer);
+        possibleAnswerService.update(rolesChecked, possibleAnswer);
         return "redirect:/{testId}/{questionId}/possibleAnswers";
 
     }

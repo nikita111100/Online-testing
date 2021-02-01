@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.NoSuchElementException;
 
 
 @org.springframework.web.bind.annotation.ControllerAdvice
@@ -43,6 +44,15 @@ public class ControllerAdvice {
         e.printStackTrace();
         ModelAndView model = new ModelAndView("errors/entityException");
         model.addObject("errCode", "Исключение устаревшего состояния");
+        model.addObject("errMsg", " :( ");
+        return model;
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ModelAndView handleException(NoSuchElementException e) {
+        e.printStackTrace();
+        ModelAndView model = new ModelAndView("errors/entityException");
+        model.addObject("errCode", "Не удалось найти сущность для сохранения");
         model.addObject("errMsg", " :( ");
         return model;
     }

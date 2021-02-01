@@ -1,9 +1,10 @@
 package org.nikita111100.onlinetesting.services;
 
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
 import org.nikita111100.onlinetesting.model.persistent.PossibleAnswer;
 import org.nikita111100.onlinetesting.model.persistent.Question;
 import org.nikita111100.onlinetesting.repositories.PossibleAnswerRepo;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +15,7 @@ import java.util.Optional;
 @Service
 public class PossibleAnswerService {
 
-    //    private static final Logger logger = LoggerFactory.getLogger(PossibleAnswerService.class);
+    private static final Logger logger = LoggerFactory.getLogger(PossibleAnswerService.class);
     private final PossibleAnswerRepo pAnswerRepo;
     private final QuestionService questionService;
 
@@ -49,38 +50,45 @@ public class PossibleAnswerService {
     }
 
     @Transactional
-    public void deleteById(Long id) throws EmptyResultDataAccessException {
-        Optional<PossibleAnswer> possibleAnswer = pAnswerRepo.findById(id);
-        if (possibleAnswer.isPresent()) {
+    public void deleteById(Long id) {
+        try {
             pAnswerRepo.deleteById(id);
+        } catch (Exception e) {
+            logger.error("Не удалось удалить сущность");
+            throw e;
         }
     }
 
     @Transactional
-    public void createPossibleAnswerForm(String rolesChecked, PossibleAnswer possibleAnswer, Long questionId) {
+    public void create(String rolesChecked, PossibleAnswer possibleAnswer, Long questionId) {
         if (rolesChecked != null) {
             possibleAnswer.setCorrectAnswer(1);
         } else {
             possibleAnswer.setCorrectAnswer(0);
         }
-        Optional<Question> question = questionService.findById(questionId);
-        if (question.isPresent()) {
+        try {
+            Optional<Question> question = questionService.findById(questionId);
             possibleAnswer.setQuestions(question.get());
             pAnswerRepo.save(possibleAnswer);
+        } catch (Exception e) {
+            logger.error("Сущность для сохранения не найдена");
+            throw e;
         }
     }
 
     @Transactional
-    public void updatePossibleAnswerForm(String rolesChecked,
-                                         PossibleAnswer possibleAnswer) throws EntityNotFoundException {
+    public void update(String rolesChecked,
+                                         PossibleAnswer possibleAnswer) {
         if (rolesChecked != null) {
             possibleAnswer.setCorrectAnswer(1);
         } else {
             possibleAnswer.setCorrectAnswer(0);
         }
-        Optional<PossibleAnswer> possibleAnswerFromDb = pAnswerRepo.findById(possibleAnswer.getId());
-        if (possibleAnswerFromDb.isPresent()) {
+        try {
             pAnswerRepo.save(possibleAnswer);
+        } catch (Exception e) {
+            logger.error("Сущность для редактирования не найдена");
+            throw e;
         }
     }
 
