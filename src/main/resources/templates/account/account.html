@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"  >
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div style="margin-left:40px;">
+    <strong> Личный кабинет </strong>
+    <p th:text = "${user.name}"> Ваше имя </p>
+    <p> Ваш ответ на тесты и ваши результаты</p>
+    <div style="margin-left:20px; margin-top:5px;" th:each="answer, iterStat : ${answers}">
+        <p style="display:inline;" th:text="${iterStat.count}"></p> <p style="display:inline;" th:text="${answer.test.name}">
+        </p>  <strong style="display:inline;"  th:text="${answer.result}"></strong>
+    </div>
+</div>
+<header th:insert="blocks/footer :: footer"></header>
+</body>
+</html>

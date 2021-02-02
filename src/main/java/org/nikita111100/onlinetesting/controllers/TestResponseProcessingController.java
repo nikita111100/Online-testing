@@ -174,8 +174,8 @@ public class TestResponseProcessingController {
         Double numberOfTrueAnswer = (numberOfQuestions - numberOfWrongAnswers);
         if (numberOfWrongAnswers != 0) {
             result = (numberOfTrueAnswer / numberOfQuestions * 100);
-            double newDouble2 = new BigDecimal(result).setScale(0, RoundingMode.HALF_EVEN).doubleValue();
-            return newDouble2;
+            double newDouble = new BigDecimal(result).setScale(0, RoundingMode.HALF_EVEN).doubleValue();
+            return newDouble;
         }
         return result = 100.0;
     }

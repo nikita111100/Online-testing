@@ -6,7 +6,7 @@
         <a sec:authorize ="hasAuthority('ADMIN')" class="p-2 text-dark" href="/tests">Создание теста </a>
         <a sec:authorize ="hasAuthority('ADMIN')" class="p-2 text-dark" href="/users">Создание пользователя </a>
         <a class="p-2 text-dark" href="/">Поддержка</a>
-        <a class="p-2 text-dark" href="/">Личный кабинет</a>
+        <a class="p-2 text-dark" href="/account">Личный кабинет</a>
     </nav>
     <p style="margin-top:14px;" sec:authorize="isAuthenticated()" sec:authentication="name" > </p>
     <form th:action="@{/logout}" method="post">

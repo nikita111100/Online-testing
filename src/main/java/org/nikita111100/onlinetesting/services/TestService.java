@@ -1,5 +1,7 @@
 package org.nikita111100.onlinetesting.services;
 
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
 import org.nikita111100.onlinetesting.model.persistent.Test;
 import org.nikita111100.onlinetesting.repositories.TestRepo;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,8 @@ import java.util.Optional;
 
 @Service
 public class TestService {
+
+    private static final Logger logger = LoggerFactory.getLogger(PossibleAnswerService.class);
 
     private final TestRepo testRepo;
 
@@ -31,12 +35,23 @@ public class TestService {
 
     @Transactional
     public void deleteById(Long id) {
-        testRepo.deleteById(id);
+        try {
+            testRepo.deleteById(id);
+        } catch (Exception e) {
+            logger.error("Не удалось удалить сущность");
+            throw e;
+        }
     }
 
     @Transactional
     public Test saveTest(Test test) {
-        return testRepo.save(test);
+        try {
+            return testRepo.save(test);
+        } catch (Exception e) {
+            logger.error("Не удалось сохранить сущность");
+            throw e;
+
+        }
     }
 }
 

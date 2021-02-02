@@ -2,6 +2,7 @@ package org.nikita111100.onlinetesting.controllers;
 
 import org.hibernate.StaleStateException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -53,6 +54,24 @@ public class ControllerAdvice {
         e.printStackTrace();
         ModelAndView model = new ModelAndView("errors/entityException");
         model.addObject("errCode", "Не удалось найти сущность для сохранения");
+        model.addObject("errMsg", " :( ");
+        return model;
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ModelAndView handleException(Exception e) {
+        e.printStackTrace();
+        ModelAndView model = new ModelAndView("errors/entityException");
+        model.addObject("errCode", "Произошла ошибка");
+        model.addObject("errMsg", " :( ");
+        return model;
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ModelAndView handleException(UsernameNotFoundException e) {
+        e.printStackTrace();
+        ModelAndView model = new ModelAndView("errors/entityException");
+        model.addObject("errCode", "Не удалось найти пользователя");
         model.addObject("errMsg", " :( ");
         return model;
     }

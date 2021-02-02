@@ -8,7 +8,6 @@ import org.nikita111100.onlinetesting.repositories.PossibleAnswerRepo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +15,9 @@ import java.util.Optional;
 public class PossibleAnswerService {
 
     private static final Logger logger = LoggerFactory.getLogger(PossibleAnswerService.class);
+
     private final PossibleAnswerRepo pAnswerRepo;
+
     private final QuestionService questionService;
 
     public PossibleAnswerService(PossibleAnswerRepo pAnswerRepository, QuestionService questionService) {
@@ -45,8 +46,14 @@ public class PossibleAnswerService {
     }
 
     @Transactional
-    public PossibleAnswer save(PossibleAnswer possibleAnswer) throws EntityNotFoundException {
-        return pAnswerRepo.save(possibleAnswer);
+    public PossibleAnswer save(PossibleAnswer possibleAnswer) {
+        try {
+            return pAnswerRepo.save(possibleAnswer);
+        } catch (Exception e) {
+            logger.error("Не удалось сохранить сущность");
+            throw e;
+
+        }
     }
 
     @Transactional
@@ -78,7 +85,7 @@ public class PossibleAnswerService {
 
     @Transactional
     public void update(String rolesChecked,
-                                         PossibleAnswer possibleAnswer) {
+                       PossibleAnswer possibleAnswer) {
         if (rolesChecked != null) {
             possibleAnswer.setCorrectAnswer(1);
         } else {

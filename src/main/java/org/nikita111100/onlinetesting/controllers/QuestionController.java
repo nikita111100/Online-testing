@@ -65,7 +65,7 @@ public class QuestionController {
     }
 
     @GetMapping("/{questionId}/update")
-    public String updateQuestionForm(@PathVariable("questionId") Long questionId, Model model) {
+    public String updateQuestion(@PathVariable("questionId") Long questionId, Model model) {
         Optional<Question> question = questionService.findById(questionId);
         if (question.isPresent()) {
             model.addAttribute("question", question.get());

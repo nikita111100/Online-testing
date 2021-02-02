@@ -50,7 +50,12 @@ public class QuestionService {
 
     @Transactional
     public Question saveQuestion(Question question) {
-        return questionRepo.save(question);
+        try {
+            return questionRepo.save(question);
+        } catch (Exception e) {
+            logger.error("Не удалось сохранить сущность");
+            throw e;
+        }
     }
 
     @Transactional

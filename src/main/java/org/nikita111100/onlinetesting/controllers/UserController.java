@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/users")
@@ -36,7 +37,8 @@ public class UserController {
     }
 
     @GetMapping("/create")
-    public String createUserForm(User user, Model model) {
+    public String createUserForm(Model model) {
+        model.addAttribute("user", new User());
         model.addAttribute("roles", Role.values());
         return "users/create";
     }
@@ -47,12 +49,11 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "/users/create";
         }
-        User userFromDb = userService.findByName(user.getName());
+       User userFromDb = userService.findByName(user.getName());
         if (userFromDb != null) {
             model.addAttribute("message", "Пользователь с таким именем уже зарегистрирован");
             return "/users/create";
         }
-
         user.setRoles(Collections.singleton(Role.USER));
         user.setActive(true);
         userService.saveUser(user);
@@ -61,22 +62,19 @@ public class UserController {
 
     @GetMapping("/{id}/delete")
     public String deleteUser(@PathVariable("id") Long id) {
-        if (userService.ifExists(id)) {
-            userService.deleteById(id);
-        }
+        userService.deleteById(id);
         return "redirect:/users";
     }
 
     @GetMapping("/{id}/update")
     public String updateUserForm(@PathVariable("id") Long id, Model model) {
-        if (userService.ifExists(id)) {
-            User user = userService.findById(id);
-            model.addAttribute("user", user);
+        Optional<User> user = userService.findById(id);
+        if (user.isPresent()) {
+            model.addAttribute("user", user.get());
             model.addAttribute("roles", Role.values());
             return "users/update";
         }
         return "redirect:/users";
-
     }
 
     @PostMapping("/{id}/update")
@@ -98,7 +96,6 @@ public class UserController {
         }
 
         User anotherUser = userService.findByName(user.getName());
-
         if (user.getId().equals(anotherUser.getId())) {
             userService.saveUser(user);
             return "redirect:/users";
