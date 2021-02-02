@@ -19,15 +19,15 @@ public class RegistrationController {
     private UserService userService;
 
     @GetMapping("/registration")
-    public String registration(Model model){
-        model.addAttribute("user",new User());
+    public String registration(Model model) {
+        model.addAttribute("user", new User());
         model.addAttribute("roles", Role.values());
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String addUser(@Valid User user, BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors()){
+    public String addUser(@Valid User user, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
             return "registration";
         }
         User userFromDb = userService.findByName(user.getName());
