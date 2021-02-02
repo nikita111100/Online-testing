@@ -15,6 +15,15 @@
     <suppress checks="MagicNumber"
               files=".controllers."/>
 
+    <suppress checks="ConstantName"
+              files=".services."/>
+
+    <suppress checks="InnerAssignment"
+              files=".controllers."/>
+
+    <suppress checks="NewlineAtEndOfFile"
+              files=".controllers."/>
+
 </suppressions>
 
 

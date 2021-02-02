@@ -4,7 +4,6 @@ import org.nikita111100.onlinetesting.model.persistent.PossibleAnswer;
 import org.nikita111100.onlinetesting.model.persistent.Question;
 import org.nikita111100.onlinetesting.services.PossibleAnswerService;
 import org.nikita111100.onlinetesting.services.QuestionService;
-import org.nikita111100.onlinetesting.services.TestService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,17 +26,16 @@ public class PossibleAnswerController {
     private final QuestionService questionService;
 
     public PossibleAnswerController(PossibleAnswerService possibleAnswerService,
-                                    QuestionService questionService,
-                                    TestService testService) {
+                                    QuestionService questionService) {
         this.possibleAnswerService = possibleAnswerService;
         this.questionService = questionService;
     }
 
     @GetMapping
-    public String findAllPossibleAnswersByQuestion(@PathVariable("questionId") Long questionId, Model model) {
+    public String findAllByQuestion(@PathVariable("questionId") Long questionId, Model model) {
         Optional<Question> question = questionService.findById(questionId);
         if (question.isPresent()) {
-            List<PossibleAnswer> possibleAnswers = possibleAnswerService.findAllByQuestionId(questionId);
+            List<PossibleAnswer> possibleAnswers = possibleAnswerService.findAllByQuestionId(question.get().getId());
             model.addAttribute("question", questionService.findById(questionId).get());
             model.addAttribute("possibleAnswers", possibleAnswers);
             return "possibleAnswers/list";
@@ -47,7 +45,8 @@ public class PossibleAnswerController {
     }
 
     @GetMapping("/create")
-    public String createPossibleAnswerForm(PossibleAnswer possibleAnswer) {
+    public String createPossibleAnswer(Model model) {
+        model.addAttribute("possibleAnswer", new PossibleAnswer());
         return "possibleAnswers/create";
     }
 
@@ -58,36 +57,26 @@ public class PossibleAnswerController {
         if (bindingResult.hasErrors()) {
             return "possibleAnswers/create";
         }
-        if (rolesChecked != null) {
-            possibleAnswer.setCorrectAnswer(1);
-        } else {
-            possibleAnswer.setCorrectAnswer(0);
-        }
-        Optional<Question> question = questionService.findById(questionId);
-        if (question.isPresent()) {
-            possibleAnswer.setQuestions(question.get());
-            possibleAnswerService.save(possibleAnswer);
-            return "redirect:/{testId}/{questionId}/possibleAnswers";
-        }
-        return "redirect:/{testId}/questions";
+        possibleAnswerService.create(rolesChecked, possibleAnswer, questionId);
+
+        return "redirect:/{testId}/{questionId}/possibleAnswers";
     }
 
     @GetMapping("/{possibleAnswerId}/delete")
     public String deletePossibleAnswer(@PathVariable("possibleAnswerId") Long id) {
-        if (possibleAnswerService.isExists(id)) {
-            possibleAnswerService.deleteById(id);
-        }
+        possibleAnswerService.deleteById(id);
         return "redirect:/{testId}/{questionId}/possibleAnswers";
     }
 
     @GetMapping("/{possibleAnswerId}/update")
-    public String updatePossibleAnswerForm(@PathVariable("possibleAnswerId") Long id, Model model) {
-        if (possibleAnswerService.isExists(id)) {
-            Optional<PossibleAnswer> possibleAnswer = possibleAnswerService.findById(id);
-            model.addAttribute("possibleAnswer", possibleAnswer);
+    public String updatePossibleAnswer(@PathVariable("possibleAnswerId") Long id, Model model) {
+        Optional<PossibleAnswer> possibleAnswer = possibleAnswerService.findById(id);
+        if (possibleAnswer.isPresent()) {
+            model.addAttribute("possibleAnswer", possibleAnswer.get());
             return "possibleAnswers/update";
+        } else {
+            return "redirect:/{testId}/{questionId}/possibleAnswers";
         }
-        return "redirect:/{testId}/{questionId}/possibleAnswers";
     }
 
     @PostMapping("/{possibleAnswerId}/update")
@@ -96,12 +85,7 @@ public class PossibleAnswerController {
         if (bindingResult.hasErrors()) {
             return "possibleAnswers/update";
         }
-        if (rolesChecked != null) {
-            possibleAnswer.setCorrectAnswer(1);
-        } else {
-            possibleAnswer.setCorrectAnswer(0);
-        }
-        possibleAnswerService.save(possibleAnswer);
+        possibleAnswerService.update(rolesChecked, possibleAnswer);
         return "redirect:/{testId}/{questionId}/possibleAnswers";
 
     }

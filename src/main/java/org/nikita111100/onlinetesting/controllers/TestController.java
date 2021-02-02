@@ -34,7 +34,8 @@ public class TestController {
     }
 
     @GetMapping("/create")
-    public String createTestForm(Test test) {
+    public String createTestForm(Model model) {
+        model.addAttribute("test", new Test());
         return "tests/create";
     }
 
@@ -49,17 +50,15 @@ public class TestController {
 
     @GetMapping("/{id}/delete")
     public String deleteTest(@PathVariable("id") Long id) {
-        if (testService.isExists(id)) {
-            testService.deleteById(id);
-        }
+        testService.deleteById(id);
         return "redirect:/tests";
     }
 
     @GetMapping("/{id}/update")
-    public String updateUserForm(@PathVariable("id") Long id, Model model) {
+    public String updateTest(@PathVariable("id") Long id, Model model) {
         Optional<Test> test = testService.findById(id);
         if (test.isPresent()) {
-            model.addAttribute("test", test);
+            model.addAttribute("test", test.get());
             return "tests/update";
         } else {
             return "redirect:/tests";
