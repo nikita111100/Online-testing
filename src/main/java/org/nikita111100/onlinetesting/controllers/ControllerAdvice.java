@@ -2,6 +2,7 @@ package org.nikita111100.onlinetesting.controllers;
 
 import org.hibernate.StaleStateException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -72,6 +73,15 @@ public class ControllerAdvice {
         e.printStackTrace();
         ModelAndView model = new ModelAndView("errors/entityException");
         model.addObject("errCode", "Не удалось найти пользователя");
+        model.addObject("errMsg", " :( ");
+        return model;
+    }
+
+    @ExceptionHandler(InternalAuthenticationServiceException.class)
+    public ModelAndView handleException(InternalAuthenticationServiceException e) {
+        e.printStackTrace();
+        ModelAndView model = new ModelAndView("errors/entityException");
+        model.addObject("errCode", "UserDetailsService returned null");
         model.addObject("errMsg", " :( ");
         return model;
     }
