@@ -14,19 +14,19 @@
         <table>
             <thead>
             <tr>
-                <th>№</th>
-                <th>name</th>
+                <th>№ </th>
+                <th> name</th>
                 <th>theme</th>
             </tr>
             </thead>
             <tr>
             <tr th:each ="test,IterStat : ${tests}">
-                <td th:text = "${IterStat.count}"></td>
-                <td th:text = "${test.name}"></td>
-                <td th:text = "${test.theme}"></td>
+                <td  th:text = "${IterStat.count}"></td>
+                <td  th:text = "${test.name}"></td>
+                <td  th:text = "${test.theme}"></td>
             <td> <a th:href = "@{{testId}/questions(testId=${test.id})}">Вопросы к тесту</a></td>
-            <td> <a  th:href = "@{tests/{id}/update(id=${test.id})}">Edit</a></td>
-            <td> <a th:href = "@{tests/{id}/delete(id=${test.id})}">Delete</a></td>
+            <td> <a style="margin-left:15px;" th:href = "@{tests/{id}/update(id=${test.id})}">Edit</a></td>
+            <td> <a style="margin-left:15px;" th:href = "@{tests/{id}/delete(id=${test.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>

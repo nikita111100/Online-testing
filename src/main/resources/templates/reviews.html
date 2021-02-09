@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"  >
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div style="margin-left:40px;">
+    <strong> Напишите свой отзыв или предложение нашему сервису</strong>
+    <form style="margin-right: 60%"th:action="@{/reviews}" th:object="${userReviews}" method="post">
+        <br>
+        <div class="form-group">
+            <textarea class="form-control" th:field="*{message}"  rows="3"></textarea>
+            <div class="text-danger" th:if="${#fields.hasErrors('message')}" th:errors="*{message}"></div>
+        </div>
+        <div><input type="submit" class="btn btn-primary" value="Отпарвить"/></div>
+    </form>
+</div>
+<header th:insert="blocks/footer :: footer"></header>
+</body>
+</html>

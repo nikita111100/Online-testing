@@ -75,10 +75,6 @@ public class TestResponseProcessingController {
 
         Set<String> checkedItems = answersToTest.getCheckedItems();
 
-        AnswerTest answerTest = new AnswerTest();
-        answerTest.setTest(test);
-        answerTestService.save(answerTest);
-
         // новая коллекция с вопросами и вариантами ответа
         Multimap<Long, Long> newCheckedItems = parseMapToMultimap(checkedItems);
 
@@ -98,6 +94,10 @@ public class TestResponseProcessingController {
                 }
             }
         }
+
+        AnswerTest answerTest = new AnswerTest();
+        answerTest.setTest(test);
+        answerTestService.save(answerTest);
 
         // подсчет количества неправильных ответов
         Double wrongAnswer = numberOfIncorrectAnswersToAQuestion(newCheckedItems, answerTest);

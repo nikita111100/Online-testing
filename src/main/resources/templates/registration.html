@@ -9,7 +9,8 @@
 <header th:insert ="blocks/header :: header"></header>
     <div style="margin-left: 40px;" >
         <span>Регистрация</span>  <a style="margin-left:40px;" href="/login">Авторизоваться</a>
-        <p class="col-form-label text-warning" th:text="${message}"></p>
+        <p class="col-form-label text-danger" th:text="${message}"></p>
+        <p class="col-form-label text-danger" th:text="${loginError}"></p>
         <form style="margin-right: 60%"th:action="@{/registration}" th:object="${user}" method="post">
 
             <label for="name">Login</label>

@@ -27,6 +27,11 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String addUser(@Valid User user, BindingResult bindingResult, Model model) {
+        boolean result = user.getName().matches("^[a-zA-Z0-9]+$");
+        if (result==false){
+            model.addAttribute("loginError", "Логин должен содержать только латинские буквы и цифры, без пробелов");
+            return "registration";
+        }
         if (bindingResult.hasErrors()) {
             return "registration";
         }

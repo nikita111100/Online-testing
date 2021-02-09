@@ -46,6 +46,11 @@ public class UserController {
     @PostMapping("/create")
     public String createUser(@Valid User user, BindingResult bindingResult,
                              Model model) {
+        boolean result = user.getName().matches("^[a-zA-Z0-9]+$");
+        if (result==false){
+            model.addAttribute("loginError", "Логин должен содержать только латинские буквы и цифры, без пробелов");
+            return "/users/create";
+        }
         if (bindingResult.hasErrors()) {
             return "/users/create";
         }
@@ -82,6 +87,11 @@ public class UserController {
                              @Valid User user,
                              BindingResult bindingResult,
                              Model model) {
+        boolean result = user.getName().matches("^[a-zA-Z0-9]+$");
+        if (result==false){
+            model.addAttribute("loginError", "Логин должен содержать только латинские буквы и цифры, без пробелов");
+            return "users/update";
+        }
         if (bindingResult.hasErrors()) {
             model.addAttribute("roles", Role.values());
             return "users/update";

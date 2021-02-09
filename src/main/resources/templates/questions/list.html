@@ -25,8 +25,8 @@
                 <td th:text = "${question.text}"></td>
                 <td th:text = "${question.test.id}"></td>
                 <td> <a  th:href = "@{{questionId}/possibleAnswers(questionId=${question.id})}">Варианты ответа</a></td>
-                <td> <a  th:href = "@{questions/{questionId}/update(questionId=${question.id})}">Edit</a></td>
-                <td> <a th:href = "@{questions/{questionId}/delete(questionId=${question.id})}">Delete</a></td>
+                <td> <a style="margin-left:15px;" th:href = "@{questions/{questionId}/update(questionId=${question.id})}">Edit</a></td>
+                <td> <a style="margin-left:15px;" th:href = "@{questions/{questionId}/delete(questionId=${question.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
