@@ -7,7 +7,8 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
-<p>[[${message} ? ${message} : '']]</p>
+<p style="margin-left: 40px;" class="col-form-label text-danger" th:text="${message}"></p>
+<p style="margin-left: 40px;" class="col-form-label text-danger" th:text="${loginError}"></p>
 <form style="margin-left: 40px; margin-right: 60%" action="#" th:action="@{update}" th:object="${user}" method="post">
     <label for="name" >name</label>
     <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="name">

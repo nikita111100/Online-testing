@@ -26,8 +26,8 @@
                 <td th:text = "${user.active}"></td>
                 <td th:text = "${user.name}"></td>
                 <td th:text = "${user.password}"></td>
-            <td> <a  th:href = "@{users/{id}/update(id=${user.id})}">Edit</a></td>
-            <td> <a th:href = "@{users/{id}/delete(id=${user.id})}">Delete</a></td>
+            <td> <a style="margin-left:15px;" th:href = "@{users/{id}/update(id=${user.id})}">Edit</a></td>
+            <td> <a style="margin-left:15px; margin-right: 15px; " th:href = "@{users/{id}/delete(id=${user.id})}">Delete</a></td>
             <div th:each="role : ${user.roles}">
                 <td th:text = "${role}"></td>
             </div>

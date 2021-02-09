@@ -26,8 +26,8 @@
                 <td th:text = "${possibleAnswer.correctAnswer}"></td>
                 <td th:text = "${possibleAnswer.text}"></td>
                 <td th:text = "${possibleAnswer.questions.id}"></td>
-                <td> <a th:href = "@{possibleAnswers/{possibleAnswerId}/update(possibleAnswerId=${possibleAnswer.id})}">Edit</a></td>
-                <td> <a th:href = "@{possibleAnswers/{possibleAnswerId}/delete(possibleAnswerId=${possibleAnswer.id})}">Delete</a></td>
+                <td> <a style="margin-left:15px;" th:href = "@{possibleAnswers/{possibleAnswerId}/update(possibleAnswerId=${possibleAnswer.id})}">Edit</a></td>
+                <td> <a style="margin-left:15px;" th:href = "@{possibleAnswers/{possibleAnswerId}/delete(possibleAnswerId=${possibleAnswer.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>

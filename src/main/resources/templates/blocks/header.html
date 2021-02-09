@@ -3,12 +3,12 @@
     <p class="h5 my-0 mr-md-auto fw-normal">Online testing</p>
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="/">Возможности </a>
-        <a sec:authorize ="hasAuthority('ADMIN')" class="p-2 text-dark" href="/tests">Создание теста </a>
-        <a sec:authorize ="hasAuthority('ADMIN')" class="p-2 text-dark" href="/users">Создание пользователя </a>
-        <a class="p-2 text-dark" href="/">Поддержка</a>
+        <a sec:authorize ="hasAuthority('ADMIN')" class="p-2 text-dark" href="/tests"> Тесты  </a>
+        <a sec:authorize ="hasAuthority('ADMIN')" class="p-2 text-dark" href="/users"> Пользователи </a>
+        <a class="p-2 text-dark" href="/reviews">Поддержка</a>
         <a class="p-2 text-dark" href="/account">Личный кабинет</a>
     </nav>
-    <p style="margin-top:14px;" sec:authorize="isAuthenticated()" sec:authentication="name" > </p>
+    <p style="margin-top:14px; margin-right:14px;"  sec:authorize="isAuthenticated()" sec:authentication="name" > </p>
     <form th:action="@{/logout}" method="post">
         <input type="submit"  sec:authorize="isAuthenticated()" class="btn btn-outline-primary" value="Sign Out"/>
     </form>
